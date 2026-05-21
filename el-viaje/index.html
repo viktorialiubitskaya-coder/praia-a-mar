@@ -255,16 +255,24 @@
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover;
-      object-position: center;
-      filter: brightness(0.42) saturate(1.05);
+      object-position: center 28%;
+      filter: brightness(0.5) saturate(1.05);
       z-index: 0;
     }
-    /* Gradient overlay: from verde-scuro at edges to transparent center, plus bottom darkening */
+    /* Asymmetric gradient: dark on left for text legibility, lighter on right so cocktail stays visible */
     .hero-overlay {
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse at 30% 50%, transparent 0%, rgba(8,40,33,0.4) 60%, rgba(5,26,20,0.85) 100%),
-        linear-gradient(to bottom, rgba(8,40,33,0.3) 0%, transparent 30%, rgba(5,26,20,0.6) 100%);
+        linear-gradient(to right,
+          rgba(8,40,33,0.85) 0%,
+          rgba(8,40,33,0.55) 35%,
+          rgba(8,40,33,0.12) 65%,
+          transparent 100%),
+        linear-gradient(to bottom,
+          rgba(5,26,20,0.45) 0%,
+          transparent 22%,
+          transparent 75%,
+          rgba(5,26,20,0.55) 100%);
       z-index: 1;
     }
     .hero-glow {
@@ -297,10 +305,10 @@
 
     .hero-character {
       position: absolute;
-      top: clamp(7rem, 13vh, 11rem);
+      bottom: clamp(6rem, 15vh, 11rem);
       right: clamp(2rem, 7vw, 6rem);
-      width: clamp(80px, 12vw, 130px);
-      height: clamp(80px, 12vw, 130px);
+      width: clamp(70px, 10vw, 110px);
+      height: clamp(70px, 10vw, 110px);
       border-radius: 50%;
       background: var(--crema);
       padding: 4px;
@@ -315,7 +323,7 @@
       50% { transform: translateY(-8px); }
     }
     @media (max-width: 700px) {
-      .hero-character { top: auto; bottom: 5rem; right: 1.5rem; width: 70px; height: 70px; }
+      .hero-character { bottom: 7rem; right: 1.5rem; width: 60px; height: 60px; }
     }
 
     .hero-content {
@@ -1198,7 +1206,7 @@
 
 <!-- ─────────────────── HERO ─────────────────── -->
 <section id="hero">
-  <img src="img/team_bar.jpg" alt="" class="hero-bg" aria-hidden="true">
+  <img src="img/bartender_pour.jpg" alt="" class="hero-bg" aria-hidden="true">
   <div class="hero-overlay"></div>
   <div class="hero-glow"></div>
 
