@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>El Viaje — Tapas · Cocktail · Wine · Praia a Mare</title>
   <meta name="description" content="El Viaje a Praia a Mare: tapas, cocktail e selezione vini. Un viaggio appassionato tra Spagna e Italia, firmato Pietro Sangineto. Via Filippo Turati 7.">
+  <link rel="alternate" hreflang="it" href="/">
+  <link rel="alternate" hreflang="en" href="/en/">
+  <link rel="alternate" hreflang="x-default" href="/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Caveat:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -124,6 +127,30 @@
     .nav-cta:hover { background: var(--terra); color: var(--crema) !important; }
 
     .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 6px; }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      font-weight: 500;
+      margin-left: 1rem;
+      padding-left: 1rem;
+      border-left: 1px solid var(--line);
+    }
+    .lang-toggle a {
+      color: var(--muted);
+      transition: color 0.3s;
+      padding: 0.3rem 0.1rem;
+    }
+    .lang-toggle a:hover { color: var(--crema); }
+    .lang-toggle a.active { color: var(--terra); }
+    .lang-toggle-sep { color: var(--line); }
+    @media (max-width: 860px) {
+      .lang-toggle { margin-left: 0; padding-left: 0; border-left: none; }
+    }
     .nav-burger span { display: block; width: 24px; height: 1px; background: var(--crema); transition: transform 0.3s, opacity 0.3s; }
     .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
     .nav-burger.open span:nth-child(2) { opacity: 0; }
@@ -1145,6 +1172,11 @@
     <li><a href="#cocktail">Cocktail</a></li>
     <li><a href="#prenota">Contatti</a></li>
     <li><a href="#prenota" class="nav-cta">Prenota</a></li>
+    <li class="lang-toggle">
+      <a href="#" class="active" aria-current="page">IT</a>
+      <span class="lang-toggle-sep">/</span>
+      <a href="en/">EN</a>
+    </li>
   </ul>
   <button class="nav-burger" id="burger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -1157,6 +1189,11 @@
   <a href="#cucina">Cucina</a>
   <a href="#cocktail">Cocktail</a>
   <a href="#prenota">Prenota</a>
+  <div class="lang-toggle" style="margin-top: 2rem; font-size: 0.75rem;">
+    <a href="#" class="active">IT</a>
+    <span class="lang-toggle-sep">/</span>
+    <a href="en/">EN</a>
+  </div>
 </div>
 
 <!-- ─────────────────── HERO ─────────────────── -->
@@ -1327,12 +1364,12 @@
     <article class="dish-card reveal">
       <div class="dish-image">
         <span class="dish-num">01</span>
-        <img src="img/tapas_tartare.jpg" alt="Tartare di tonno con stracciatella e granella di pistacchio">
+        <img src="img/tapas_tartare.jpg" alt="Tartare di manzo con stracciatella e granella di pistacchio">
       </div>
       <div class="dish-body">
-        <p class="dish-category">Mare · Crudo</p>
-        <h3 class="dish-name">Tartare di tonno,<br><em>stracciatella & pistacchio</em></h3>
-        <p class="dish-desc">Tonno fresco al coltello, cuore di stracciatella pugliese, granella di pistacchio di Bronte.</p>
+        <p class="dish-category">Carne · Crudo</p>
+        <h3 class="dish-name">Tartare di manzo,<br><em>stracciatella & pistacchio</em></h3>
+        <p class="dish-desc">Manzo battuto al coltello, cuore di stracciatella, granella di pistacchio. Una tapa che racconta due Italie.</p>
       </div>
     </article>
 
