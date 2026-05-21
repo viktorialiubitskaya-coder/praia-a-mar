@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Viaje — Tapas · Cocktail · Wine · Praia a Mare</title>
+  <meta name="description" content="El Viaje a Praia a Mare: tapas, cocktail e selezione vini. Un viaggio appassionato tra Spagna e Italia, firmato Pietro Sangineto. Via Filippo Turati 7.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Caveat:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Palette ispirata al locale: verde bottiglia profondo, crema, terra spagnola */
+      --verde:        #0d4d3f;
+      --verde-scuro:  #082821;
+      --verde-deep:   #051a14;
+      --verde-light:  #1a6b58;
+      --crema:        #f5f0e6;
+      --crema-soft:   #ebe3d2;
+      --terra:        #c4602a;
+      --terra-soft:   #e88d50;
+      --oro:          #d4a017;
+      --vino:         #7a1f2b;
+      --ink:          #0a0a0a;
+      --muted:        rgba(245,240,230,0.55);
+      --muted-dark:   rgba(10,40,33,0.55);
+      --line:         rgba(245,240,230,0.12);
+      --line-dark:    rgba(10,40,33,0.12);
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-hand:    'Caveat', cursive;
+      --font-body:    'Inter', system-ui, sans-serif;
+      --ease:         cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--verde-deep);
+      color: var(--crema);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* Texture: subtle film grain over everything */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.96 0 0 0 0 0.94 0 0 0 0 0.9 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 999;
+      mix-blend-mode: overlay;
+    }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-2 { transition-delay: 0.1s; }
+    .reveal-3 { transition-delay: 0.2s; }
+    .reveal-4 { transition-delay: 0.3s; }
+    .reveal-5 { transition-delay: 0.4s; }
+
+    /* ─────────────────────────────────────── NAVIGATION ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.4rem clamp(1.5rem, 5vw, 4rem);
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all 0.5s var(--ease);
+    }
+    nav.scrolled {
+      background: rgba(5, 26, 20, 0.85);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      padding-top: 0.9rem; padding-bottom: 0.9rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-brand {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.55rem;
+      font-weight: 500;
+      color: var(--crema);
+      letter-spacing: 0.01em;
+      display: flex; align-items: baseline; gap: 0.4rem;
+    }
+    .nav-brand-dot { color: var(--terra); }
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; left: 0; bottom: -6px; width: 0; height: 1px;
+      background: var(--terra); transition: width 0.4s var(--ease);
+    }
+    .nav-links a:hover { color: var(--crema); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      border: 1px solid var(--terra) !important;
+      color: var(--terra) !important;
+      padding: 0.6rem 1.3rem;
+      letter-spacing: 0.18em !important;
+      transition: all 0.3s !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--terra); color: var(--crema) !important; }
+
+    .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 6px; }
+    .nav-burger span { display: block; width: 24px; height: 1px; background: var(--crema); transition: transform 0.3s, opacity 0.3s; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 99;
+      background: var(--verde-deep);
+      padding: 6rem 2rem 2rem;
+      flex-direction: column;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 400;
+      color: var(--crema); border-bottom: 1px solid var(--line); padding: 1.4rem 0;
+      font-style: italic;
+    }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+    }
+
+    /* ─────────────────────────────────────── SHARED ─────────────────────────────────────── */
+    .eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 1.5rem;
+      display: inline-flex; align-items: center; gap: 0.85rem;
+      font-weight: 500;
+    }
+    .eyebrow::before {
+      content: ''; display: block; width: 2.2rem; height: 1px; background: var(--terra);
+    }
+    .display-title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      line-height: 1.02;
+      letter-spacing: -0.015em;
+      color: var(--crema);
+      margin-bottom: 1.8rem;
+    }
+    .display-title .italic { font-style: italic; color: var(--terra); }
+    .lead {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+      line-height: 1.5;
+      color: var(--crema-soft);
+      max-width: 52ch;
+    }
+    .body-text {
+      font-size: 0.96rem;
+      line-height: 1.78;
+      color: rgba(245,240,230,0.78);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: var(--terra); color: var(--crema);
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+      padding: 1.1rem 2rem;
+      border: 1px solid var(--terra);
+      transition: all 0.3s var(--ease);
+      position: relative; overflow: hidden;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; inset: 0; background: var(--verde-light);
+      transform: translateX(-101%); transition: transform 0.4s var(--ease); z-index: 0;
+    }
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-primary:hover { border-color: var(--verde-light); }
+    .btn-primary > * { position: relative; z-index: 1; }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      border: 1px solid var(--line); color: var(--crema-soft);
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
+      padding: 1.05rem 1.8rem;
+      transition: all 0.3s;
+    }
+    .btn-ghost:hover { border-color: var(--crema); color: var(--crema); }
+
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: #25D366; color: #fff;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 1.05rem 1.9rem; transition: background 0.2s;
+    }
+    .btn-wa:hover { background: #1fb855; }
+
+    /* ─────────────────────────────────────── HERO ─────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 8rem clamp(1.5rem, 6vw, 5rem) 4rem;
+      overflow: hidden;
+      background: var(--verde);
+    }
+    /* Subtle radial light from top-left, like a spotlight in the bar */
+    .hero-glow {
+      position: absolute; top: -20%; left: -10%;
+      width: 60%; aspect-ratio: 1;
+      background: radial-gradient(circle, rgba(212,160,23,0.18) 0%, transparent 60%);
+      pointer-events: none;
+      animation: glow-drift 18s ease-in-out infinite alternate;
+    }
+    @keyframes glow-drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(8%, 5%) scale(1.15); }
+    }
+    /* Vertical stripes evoking the bar shelf - very subtle */
+    .hero-stripes {
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(245,240,230,0.025) 80px, rgba(245,240,230,0.025) 81px);
+      pointer-events: none;
+    }
+
+    .hero-meta {
+      position: absolute; top: 7rem; left: clamp(1.5rem, 6vw, 5rem);
+      font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--muted);
+      display: flex; align-items: center; gap: 0.85rem;
+      animation: fade-up 1s var(--ease) 0.2s both;
+    }
+    .hero-meta-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--terra); animation: pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1100px;
+    }
+
+    .hero-spanish {
+      font-family: var(--font-hand);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--terra-soft);
+      margin-bottom: 1.2rem;
+      transform: rotate(-2deg);
+      display: inline-block;
+      animation: fade-up 1s var(--ease) 0.4s both;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(2.8rem, 9vw, 7.5rem);
+      line-height: 0.96;
+      letter-spacing: -0.025em;
+      color: var(--crema);
+      margin-bottom: 2rem;
+      animation: fade-up 1.2s var(--ease) 0.55s both;
+    }
+    .hero-title .italic-terra {
+      font-style: italic;
+      color: var(--terra-soft);
+      font-weight: 400;
+    }
+    .hero-title .strike {
+      position: relative; display: inline-block;
+    }
+    .hero-title .strike::after {
+      content: ''; position: absolute; left: -2%; right: -2%; top: 52%;
+      height: 3px; background: var(--terra);
+      transform: scaleX(0); transform-origin: left;
+      animation: strike-in 1s var(--ease) 1.5s forwards;
+    }
+    @keyframes strike-in { to { transform: scaleX(1); } }
+
+    .hero-tagline {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.05rem, 1.8vw, 1.4rem);
+      color: var(--crema-soft);
+      max-width: 38ch;
+      margin-bottom: 3rem;
+      animation: fade-up 1s var(--ease) 0.75s both;
+    }
+
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; animation: fade-up 1s var(--ease) 0.95s both; }
+
+    .hero-bottom {
+      position: absolute; bottom: 2.5rem;
+      left: clamp(1.5rem, 6vw, 5rem); right: clamp(1.5rem, 6vw, 5rem);
+      display: flex; justify-content: space-between; align-items: flex-end;
+      z-index: 2;
+      animation: fade-up 1s var(--ease) 1.2s both;
+    }
+    .hero-coords {
+      font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--muted); line-height: 1.6;
+    }
+    .hero-coords strong { color: var(--crema-soft); font-weight: 400; }
+    .hero-scroll-hint {
+      writing-mode: vertical-rl;
+      font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--muted);
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .hero-scroll-hint::after {
+      content: ''; width: 1px; height: 36px;
+      background: linear-gradient(to bottom, var(--terra), transparent);
+      animation: scroll-pulse 2s ease-in-out infinite;
+    }
+    @keyframes scroll-pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 700px) {
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+      .hero-scroll-hint { writing-mode: horizontal-tb; }
+      .hero-scroll-hint::after { width: 36px; height: 1px; background: linear-gradient(to right, var(--terra), transparent); }
+    }
+
+    /* ─────────────────────────────────────── MARQUEE STRIP ─────────────────────────────────────── */
+    .marquee {
+      background: var(--terra);
+      color: var(--verde-deep);
+      overflow: hidden;
+      padding: 0.85rem 0;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    .marquee-track {
+      display: flex; gap: 3rem; white-space: nowrap;
+      animation: marquee 38s linear infinite;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    .marquee-item { display: flex; align-items: center; gap: 3rem; }
+    .marquee-item::after { content: '✦'; color: var(--verde-deep); }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─────────────────────────────────────── STORIA ─────────────────────────────────────── */
+    #storia {
+      background: var(--crema);
+      color: var(--verde-scuro);
+      padding: clamp(5rem, 10vw, 9rem) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .storia-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 6vw, 5rem);
+    }
+    @media (max-width: 900px) { .storia-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+    .storia-image {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .storia-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 1s var(--ease);
+    }
+    .storia-image:hover img { transform: scale(1.04); }
+    .storia-image::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 65%, rgba(13,77,63,0.25));
+      pointer-events: none;
+    }
+    .storia-image-tag {
+      position: absolute; top: 1.5rem; left: 1.5rem;
+      background: var(--verde);
+      color: var(--crema);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      padding: 0.45rem 0.85rem;
+      font-weight: 500;
+    }
+
+    .storia-content .eyebrow { color: var(--terra); }
+    .storia-content .eyebrow::before { background: var(--terra); }
+    .storia-content .display-title { color: var(--verde-scuro); }
+    .storia-content .display-title .italic { color: var(--terra); }
+
+    .storia-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.15rem, 1.9vw, 1.45rem);
+      line-height: 1.5;
+      color: var(--verde);
+      padding: 1.6rem 0 1.6rem 1.5rem;
+      border-left: 2px solid var(--terra);
+      margin: 1.5rem 0 2rem;
+    }
+    .storia-body { color: var(--muted-dark); font-size: 1rem; line-height: 1.85; margin-bottom: 1.4rem; }
+    .storia-body strong { color: var(--verde-scuro); font-weight: 500; }
+
+    .storia-signature {
+      margin-top: 2.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line-dark);
+    }
+    .storia-signature-name {
+      font-family: var(--font-hand);
+      font-size: 1.7rem;
+      color: var(--terra);
+      transform: rotate(-2deg);
+    }
+    .storia-signature-role {
+      font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted-dark);
+    }
+
+    /* Decorative big quotation mark */
+    .storia-deco {
+      position: absolute;
+      top: 10%; right: 5%;
+      font-family: var(--font-display);
+      font-size: 28rem;
+      line-height: 0.7;
+      color: var(--terra);
+      opacity: 0.06;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ─────────────────────────────────────── ESPERIENZA / TAPAS CULTURE ─────────────────────────────────────── */
+    #esperienza {
+      background: var(--verde);
+      padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 6vw, 5rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .esperienza-glow {
+      position: absolute; bottom: -30%; right: -10%;
+      width: 50%; aspect-ratio: 1;
+      background: radial-gradient(circle, rgba(196,96,42,0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .esperienza-header {
+      max-width: 900px;
+      margin: 0 auto 5rem;
+      text-align: center;
+      position: relative; z-index: 2;
+    }
+    .esperienza-header .eyebrow { margin-left: auto; margin-right: auto; }
+
+    .esperienza-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1rem, 3vw, 3rem);
+      max-width: 1300px;
+      margin: 0 auto;
+      position: relative; z-index: 2;
+    }
+    @media (max-width: 800px) { .esperienza-pillars { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    .pillar {
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      position: relative;
+      transition: transform 0.5s var(--ease);
+    }
+    .pillar:hover { transform: translateY(-6px); }
+    .pillar-num {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 4.5rem;
+      font-weight: 300;
+      color: var(--terra-soft);
+      line-height: 1;
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+    .pillar-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--crema);
+      margin-bottom: 1rem;
+    }
+    .pillar-spanish {
+      font-family: var(--font-hand);
+      font-size: 1.3rem;
+      color: var(--terra-soft);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .pillar-text {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: rgba(245,240,230,0.72);
+      max-width: 30ch;
+      margin: 0 auto;
+    }
+
+    .esperienza-quote {
+      max-width: 700px;
+      margin: 5rem auto 0;
+      text-align: center;
+      position: relative; z-index: 2;
+    }
+    .esperienza-quote-text {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+      line-height: 1.5;
+      color: var(--terra-soft);
+    }
+
+    /* ─────────────────────────────────────── COCKTAIL ─────────────────────────────────────── */
+    #cocktail {
+      background: var(--verde-scuro);
+      padding: 0;
+      overflow: hidden;
+    }
+    .cocktail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      min-height: 720px;
+    }
+    @media (max-width: 900px) { .cocktail-grid { grid-template-columns: 1fr; } }
+
+    .cocktail-images {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 2px;
+      min-height: 560px;
+    }
+    .cocktail-img-cell {
+      position: relative;
+      overflow: hidden;
+    }
+    .cocktail-img-cell img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.8s var(--ease), filter 0.5s;
+      filter: saturate(0.85) brightness(0.85);
+    }
+    .cocktail-img-cell:hover img { transform: scale(1.08); filter: saturate(1.1) brightness(1); }
+    .cocktail-img-cell::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,40,33,0.45), transparent 50%);
+      pointer-events: none;
+    }
+    .cocktail-img-label {
+      position: absolute; bottom: 1rem; left: 1rem;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--crema);
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .cocktail-img-cell:hover .cocktail-img-label { opacity: 1; transform: translateY(0); }
+
+    .cocktail-content {
+      padding: clamp(3rem, 7vw, 6rem) clamp(1.8rem, 5vw, 4.5rem);
+      display: flex; flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .cocktail-spanish {
+      font-family: var(--font-hand);
+      font-size: 1.6rem;
+      color: var(--terra-soft);
+      margin-bottom: 1rem;
+      transform: rotate(-1.5deg);
+      display: inline-block;
+    }
+    .cocktail-body { color: rgba(245,240,230,0.78); margin: 1.5rem 0 2rem; font-size: 1rem; line-height: 1.78; }
+
+    .cocktail-list {
+      display: flex; flex-direction: column;
+      margin: 2rem 0 2.5rem;
+    }
+    .cocktail-item {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--line);
+      gap: 1rem;
+      transition: padding 0.3s;
+    }
+    .cocktail-item:hover { padding-left: 0.5rem; }
+    .cocktail-item:hover .cocktail-item-name { color: var(--terra-soft); }
+    .cocktail-item-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--crema);
+      transition: color 0.3s;
+    }
+    .cocktail-item-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      text-align: right;
+      max-width: 50%;
+      line-height: 1.5;
+    }
+
+    .cocktail-callout {
+      background: rgba(245,240,230,0.04);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--terra);
+      padding: 1.3rem 1.6rem;
+      margin-top: 1rem;
+    }
+    .cocktail-callout-label {
+      font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--terra-soft); margin-bottom: 0.5rem; font-weight: 500;
+    }
+    .cocktail-callout-text { font-size: 0.9rem; color: var(--crema-soft); line-height: 1.65; }
+
+    /* ─────────────────────────────────────── CUCINA GALLERY ─────────────────────────────────────── */
+    #cucina {
+      background: var(--crema);
+      color: var(--verde-scuro);
+      padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 6vw, 5rem);
+    }
+    .cucina-header {
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+    }
+    @media (max-width: 700px) { .cucina-header { grid-template-columns: 1fr; } }
+
+    .cucina-header .eyebrow { color: var(--terra); }
+    .cucina-header .eyebrow::before { background: var(--terra); }
+    .cucina-header .display-title { color: var(--verde-scuro); }
+    .cucina-header .display-title .italic { color: var(--terra); }
+    .cucina-header-lead {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--muted-dark);
+      max-width: 32ch;
+      line-height: 1.55;
+    }
+
+    .cucina-gallery {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(2, 320px);
+      gap: 4px;
+    }
+    @media (max-width: 900px) {
+      .cucina-gallery { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 240px); }
+    }
+    .cucina-cell {
+      position: relative; overflow: hidden;
+      background: var(--verde-scuro);
+    }
+    .cucina-cell img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.9s var(--ease), filter 0.5s;
+    }
+    .cucina-cell:hover img { transform: scale(1.06); }
+    /* Hover caption overlay */
+    .cucina-cell-caption {
+      position: absolute; inset: auto 0 0 0;
+      padding: 1.4rem 1.2rem 1.1rem;
+      background: linear-gradient(to top, rgba(8,40,33,0.92), transparent);
+      color: var(--crema);
+      transform: translateY(100%);
+      transition: transform 0.5s var(--ease);
+    }
+    .cucina-cell:hover .cucina-cell-caption { transform: translateY(0); }
+    .cucina-cell-caption-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      margin-bottom: 0.15rem;
+    }
+    .cucina-cell-caption-desc {
+      font-size: 0.75rem;
+      color: rgba(245,240,230,0.75);
+      line-height: 1.45;
+    }
+
+    /* Layout: 1 large, others smaller */
+    .cucina-cell.big-h {
+      grid-column: span 3;
+    }
+    .cucina-cell.big-v {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    .cucina-cell.normal { grid-column: span 1; }
+    .cucina-cell.wide { grid-column: span 2; }
+
+    @media (max-width: 900px) {
+      .cucina-cell.big-h, .cucina-cell.big-v, .cucina-cell.normal, .cucina-cell.wide {
+        grid-column: span 1; grid-row: span 1;
+      }
+    }
+
+    .cucina-footer {
+      max-width: 1200px;
+      margin: 4rem auto 0;
+      text-align: center;
+      padding-top: 3rem;
+      border-top: 1px solid var(--line-dark);
+    }
+    .cucina-footer-text {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--verde);
+      margin-bottom: 1.5rem;
+      max-width: 50ch;
+      margin-left: auto; margin-right: auto;
+      line-height: 1.55;
+    }
+
+    /* ─────────────────────────────────────── PRESS ─────────────────────────────────────── */
+    #press {
+      position: relative;
+      padding: clamp(6rem, 12vw, 11rem) clamp(1.5rem, 6vw, 5rem);
+      background: var(--verde-deep);
+      overflow: hidden;
+      text-align: center;
+    }
+    .press-bg {
+      position: absolute; inset: 0;
+      background-image: url('img/wine_toast.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.25) saturate(0.6) blur(2px);
+      opacity: 0.5;
+    }
+    .press-content {
+      position: relative; z-index: 2;
+      max-width: 900px; margin: 0 auto;
+    }
+    .press-stars {
+      display: flex; justify-content: center; gap: 0.4rem;
+      margin-bottom: 1.5rem;
+      color: var(--oro);
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+    }
+    .press-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.5rem, 3.5vw, 2.6rem);
+      line-height: 1.35;
+      color: var(--crema);
+      margin-bottom: 2rem;
+      letter-spacing: -0.01em;
+    }
+    .press-quote .highlight { color: var(--terra-soft); font-style: italic; }
+    .press-author {
+      font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--terra-soft);
+      margin-bottom: 0.4rem;
+    }
+    .press-author-detail {
+      font-size: 0.78rem; color: var(--muted);
+      font-family: var(--font-display); font-style: italic;
+    }
+
+    /* ─────────────────────────────────────── DEHORS / AMBIENTE ─────────────────────────────────────── */
+    #dehors {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      background: var(--verde);
+      min-height: 560px;
+    }
+    @media (max-width: 900px) { #dehors { grid-template-columns: 1fr; } }
+
+    .dehors-image {
+      position: relative; overflow: hidden;
+      min-height: 360px;
+    }
+    .dehors-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 1.2s var(--ease);
+    }
+    .dehors-image:hover img { transform: scale(1.05); }
+
+    .dehors-content {
+      padding: clamp(3rem, 7vw, 6rem) clamp(1.8rem, 5vw, 4.5rem);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .dehors-content .display-title { color: var(--crema); }
+    .dehors-content .display-title .italic { color: var(--terra-soft); }
+    .dehors-list { margin: 2rem 0; display: flex; flex-direction: column; gap: 1.3rem; }
+    .dehors-item {
+      display: flex; align-items: flex-start; gap: 1.1rem;
+      padding: 0.4rem 0;
+    }
+    .dehors-item-dot {
+      flex-shrink: 0;
+      width: 6px; height: 6px;
+      background: var(--terra);
+      margin-top: 0.6rem;
+      transform: rotate(45deg);
+    }
+    .dehors-item-text {
+      font-size: 0.95rem;
+      color: rgba(245,240,230,0.82);
+      line-height: 1.7;
+    }
+    .dehors-item-text strong {
+      color: var(--crema);
+      font-weight: 500;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    /* ─────────────────────────────────────── INFO / PRENOTA ─────────────────────────────────────── */
+    #prenota {
+      background: var(--crema);
+      color: var(--verde-scuro);
+      padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 6vw, 5rem);
+    }
+    .prenota-grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: center;
+    }
+    @media (max-width: 900px) { .prenota-grid { grid-template-columns: 1fr; } }
+
+    .prenota-content .eyebrow { color: var(--terra); }
+    .prenota-content .eyebrow::before { background: var(--terra); }
+    .prenota-content .display-title { color: var(--verde-scuro); }
+    .prenota-content .display-title .italic { color: var(--terra); }
+    .prenota-lead {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--muted-dark);
+      line-height: 1.55;
+      margin-bottom: 2.5rem;
+      max-width: 38ch;
+    }
+
+    .prenota-info { display: flex; flex-direction: column; gap: 1.8rem; margin-bottom: 2.5rem; }
+    .info-row { display: flex; align-items: flex-start; gap: 1.2rem; }
+    .info-icon {
+      flex-shrink: 0;
+      width: 38px; height: 38px;
+      border: 1px solid var(--verde);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--verde);
+    }
+    .info-label {
+      font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--terra); margin-bottom: 0.35rem; font-weight: 500;
+    }
+    .info-value {
+      font-size: 0.98rem; color: var(--verde-scuro); line-height: 1.55;
+    }
+    .info-value a { color: var(--verde-scuro); border-bottom: 1px solid var(--terra); transition: color 0.2s; }
+    .info-value a:hover { color: var(--terra); }
+    .orari-grid { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1.5rem; margin-top: 0.15rem; }
+    .orari-day { font-size: 0.88rem; color: var(--verde); font-weight: 500; }
+    .orari-time { font-size: 0.88rem; color: var(--muted-dark); }
+    .orari-closed { color: var(--vino); font-style: italic; }
+
+    .prenota-ctas { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+
+    .prenota-map {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .prenota-map iframe {
+      width: 100%; height: 100%; border: 0;
+      filter: grayscale(20%) hue-rotate(120deg) saturate(0.6);
+    }
+    .prenota-map-frame {
+      position: absolute; inset: 0;
+      border: 2px solid var(--terra);
+      pointer-events: none;
+      transform: translate(12px, 12px);
+    }
+    .prenota-map-marker {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -100%);
+      background: var(--terra);
+      color: var(--crema);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 0.85rem;
+      padding: 0.4rem 0.85rem;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .prenota-map-marker::after {
+      content: ''; position: absolute;
+      bottom: -6px; left: 50%; transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--terra);
+    }
+
+    /* ─────────────────────────────────────── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: var(--verde-deep);
+      padding: 4rem clamp(1.5rem, 6vw, 5rem) 2rem;
+      border-top: 1px solid var(--line);
+    }
+    .footer-grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--line);
+    }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+    @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    .footer-brand-name {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 2.2rem;
+      color: var(--crema);
+      margin-bottom: 0.6rem;
+      font-weight: 400;
+    }
+    .footer-brand-tag {
+      font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--terra); margin-bottom: 1.2rem;
+    }
+    .footer-brand-text {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 32ch;
+      line-height: 1.5;
+    }
+
+    .footer-col-title {
+      font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--terra); margin-bottom: 1.2rem; font-weight: 500;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--crema-soft);
+      transition: color 0.3s, padding-left 0.3s;
+    }
+    .footer-links a:hover { color: var(--terra-soft); padding-left: 0.4rem; }
+
+    .footer-social { display: flex; gap: 0.6rem; margin-top: 0.4rem; }
+    .footer-social a {
+      width: 38px; height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      transition: all 0.3s;
+    }
+    .footer-social a:hover {
+      border-color: var(--terra); color: var(--terra);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      max-width: 1300px; margin: 2rem auto 0;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-copy { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
+    .footer-agency {
+      font-size: 0.65rem; color: rgba(245,240,230,0.25); letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .footer-agency a { color: var(--muted); transition: color 0.2s; }
+    .footer-agency a:hover { color: var(--terra); }
+
+    /* ─────────────────────────────────────── WHATSAPP FLOAT ─────────────────────────────────────── */
+    .wa-float {
+      position: fixed; bottom: 1.5rem; right: 1.5rem;
+      z-index: 90;
+      width: 58px; height: 58px;
+      background: #25D366; color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.6);
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: wa-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes wa-pulse {
+      0%, 100% { box-shadow: 0 8px 24px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.6); }
+      50% { box-shadow: 0 8px 24px rgba(37,211,102,0.4), 0 0 0 14px rgba(37,211,102,0); }
+    }
+    .wa-float:hover { transform: scale(1.08); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-brand">El Viaje<span class="nav-brand-dot">·</span></a>
+  <ul class="nav-links">
+    <li><a href="#storia">Chi siamo</a></li>
+    <li><a href="#esperienza">Tapas</a></li>
+    <li><a href="#cocktail">Cocktail</a></li>
+    <li><a href="#cucina">Cucina</a></li>
+    <li><a href="#prenota">Prenota</a></li>
+    <li><a href="#prenota" class="nav-cta">Prenota</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#storia">Chi siamo</a>
+  <a href="#esperienza">Le tapas</a>
+  <a href="#cocktail">Cocktail</a>
+  <a href="#cucina">Cucina</a>
+  <a href="#prenota">Prenota</a>
+</div>
+
+<!-- ─────────────────────────── HERO ─────────────────────────── -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-stripes"></div>
+
+  <div class="hero-meta">
+    <span class="hero-meta-dot"></span>
+    <span>Praia a Mare · Calabria</span>
+    <span style="opacity:0.4">/</span>
+    <span>Aperti questa sera 18:00 – 00:30</span>
+  </div>
+
+  <div class="hero-content">
+    <span class="hero-spanish">Bienvenidos al viaje</span>
+    <h1 class="hero-title">
+      Il viaggio non è<br>
+      il nostro <span class="strike">nome</span>.<br>
+      È la nostra <span class="italic-terra">essenza</span>.
+    </h1>
+    <p class="hero-tagline">
+      Tapas iberiche, cocktail d'autore e una selezione di vini —<br>
+      tra Spagna e Italia, a due passi dal Tirreno.
+    </p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/393928317628?text=Ciao%20El%20Viaje!%20Vorrei%20prenotare%20un%20tavolo." class="btn-primary" target="_blank" rel="noopener">
+        <span>Prenota un tavolo</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#storia" class="btn-ghost">Scopri El Viaje</a>
+    </div>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="hero-coords">
+      <strong>Via Filippo Turati 7</strong><br>
+      87028 Praia a Mare (CS)
+    </div>
+    <div class="hero-scroll-hint">Scroll</div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── MARQUEE ─────────────────────────── -->
+<div class="marquee">
+  <div class="marquee-track">
+    <div class="marquee-item">Tapas</div>
+    <div class="marquee-item">Cocktail d'autore</div>
+    <div class="marquee-item">Vini selezionati</div>
+    <div class="marquee-item">Spagna · Italia</div>
+    <div class="marquee-item">Praia a Mare</div>
+    <div class="marquee-item">Convivialità iberica</div>
+    <div class="marquee-item">Tapas</div>
+    <div class="marquee-item">Cocktail d'autore</div>
+    <div class="marquee-item">Vini selezionati</div>
+    <div class="marquee-item">Spagna · Italia</div>
+    <div class="marquee-item">Praia a Mare</div>
+    <div class="marquee-item">Convivialità iberica</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────── STORIA ─────────────────────────── -->
+<section id="storia">
+  <div class="storia-deco">"</div>
+  <div class="storia-grid">
+    <div class="storia-image reveal">
+      <img src="img/team_bar.jpg" alt="Pietro Sangineto e la sua compagna dietro al bancone di El Viaje">
+      <div class="storia-image-tag">Pietro & la sua compagna</div>
+    </div>
+    <div class="storia-content">
+      <p class="eyebrow reveal">La nostra storia</p>
+      <h2 class="display-title reveal reveal-2">
+        Due percorsi,<br>
+        un <span class="italic">filo rosso</span>.
+      </h2>
+      <blockquote class="storia-quote reveal reveal-3">
+        Ci lega un filo rosso che attraversa il Mediterraneo:<br>
+        la lingua spagnola.
+      </blockquote>
+      <p class="storia-body reveal reveal-4">
+        <strong>Lui</strong> — una carriera lunga venticinque anni, vissuta tra Spagna e Italia, costruita un cocktail alla volta.
+      </p>
+      <p class="storia-body reveal reveal-4">
+        <strong>Lei</strong> — ispano-parlante per nascita, mossa dall'amore per l'arte del buon bere e dall'autenticità dei profumi della cucina mediterranea.
+      </p>
+      <p class="storia-body reveal reveal-5">
+        Da questa sinergia è nata l'idea di portare a Praia a Mare uno spazio dedicato alle <em>tapas</em> — simbolo per eccellenza della convivialità iberica.
+      </p>
+      <div class="storia-signature reveal reveal-5">
+        <span class="storia-signature-name">Pietro Sangineto</span>
+        <span class="storia-signature-role">&amp; compagna · Fondatori</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── ESPERIENZA / TAPAS ─────────────────────────── -->
+<section id="esperienza">
+  <div class="esperienza-glow"></div>
+
+  <div class="esperienza-header">
+    <p class="eyebrow reveal">La cultura delle tapas</p>
+    <h2 class="display-title reveal reveal-2">
+      Cosa sono <span class="italic">le tapas</span>?
+    </h2>
+    <p class="lead reveal reveal-3" style="margin: 0 auto;">
+      Non un pasto. Uno stile di vita iberico che insegna a rallentare,
+      condividere e ritrovarsi attorno a un tavolo.
+    </p>
+  </div>
+
+  <div class="esperienza-pillars">
+    <div class="pillar reveal reveal-2">
+      <div class="pillar-num">I</div>
+      <span class="pillar-spanish">Convivencia</span>
+      <h3 class="pillar-title">Nate per condividere</h3>
+      <p class="pillar-text">
+        In Spagna la tapa nasce come piccolo boccone servito con il vino —
+        un invito a rallentare, chiacchierare, stare insieme.
+      </p>
+    </div>
+    <div class="pillar reveal reveal-3">
+      <div class="pillar-num">II</div>
+      <span class="pillar-spanish">Variedad</span>
+      <h3 class="pillar-title">Varietà senza confini</h3>
+      <p class="pillar-text">
+        Pesce, carne, verdure, fritture, paste fresche, sapori iberici e mediterranei.
+        Piccole porzioni, grandi sorprese.
+      </p>
+    </div>
+    <div class="pillar reveal reveal-4">
+      <div class="pillar-num">III</div>
+      <span class="pillar-spanish">Ritual</span>
+      <h3 class="pillar-title">Il rituale della tavola</h3>
+      <p class="pillar-text">
+        Si ordinano insieme, si assaggiano tutti, si ridivide il piatto.
+        Una cena diventa un'esperienza collettiva.
+      </p>
+    </div>
+  </div>
+
+  <div class="esperienza-quote reveal">
+    <p class="esperienza-quote-text">
+      « A El Viaje ogni tavolo è una piccola Spagna:<br>
+      si parla, si brinda, si condivide. »
+    </p>
+  </div>
+</section>
+
+<!-- ─────────────────────────── COCKTAIL ─────────────────────────── -->
+<section id="cocktail">
+  <div class="cocktail-grid">
+    <div class="cocktail-content">
+      <p class="eyebrow reveal">Dietro al bancone</p>
+      <span class="cocktail-spanish reveal reveal-2">El arte de mezclar</span>
+      <h2 class="display-title reveal reveal-2">
+        Cocktail<br>
+        <span class="italic-terra" style="color:var(--terra-soft);font-style:italic">d'autore</span>.
+      </h2>
+      <p class="cocktail-body reveal reveal-3">
+        Venticinque anni dietro al bancone si sentono al primo sorso. Ogni cocktail
+        è pensato come un piccolo viaggio: ingredienti scelti, dettagli curati,
+        e quell'istante perfetto in cui la serata inizia davvero.
+      </p>
+
+      <div class="cocktail-list reveal reveal-4">
+        <div class="cocktail-item">
+          <span class="cocktail-item-name">Americano El Viaje</span>
+          <span class="cocktail-item-desc">La firma della casa</span>
+        </div>
+        <div class="cocktail-item">
+          <span class="cocktail-item-name">Negroni</span>
+          <span class="cocktail-item-desc">Il classico, fatto bene</span>
+        </div>
+        <div class="cocktail-item">
+          <span class="cocktail-item-name">Daiquiri</span>
+          <span class="cocktail-item-desc">Ron · lime · zucchero di canna</span>
+        </div>
+        <div class="cocktail-item">
+          <span class="cocktail-item-name">Caipirinha</span>
+          <span class="cocktail-item-desc">Cachaça · lime · zucchero</span>
+        </div>
+        <div class="cocktail-item">
+          <span class="cocktail-item-name">Selezione Vini</span>
+          <span class="cocktail-item-desc">Rossi · bianchi · al calice o bottiglia</span>
+        </div>
+      </div>
+
+      <div class="cocktail-callout reveal reveal-5">
+        <div class="cocktail-callout-label">In carta</div>
+        <div class="cocktail-callout-text">
+          Cura nella selezione di gin, rum, vermouth e amari — con uno sguardo
+          attento ai produttori locali e ai distillati di qualità.
+        </div>
+      </div>
+    </div>
+
+    <div class="cocktail-images reveal">
+      <div class="cocktail-img-cell">
+        <img src="img/bartender_pour.jpg" alt="Pietro al lavoro dietro al bancone">
+        <span class="cocktail-img-label">L'arte del pour</span>
+      </div>
+      <div class="cocktail-img-cell">
+        <img src="img/cocktail_negroni.jpg" alt="Negroni servito on the rocks">
+        <span class="cocktail-img-label">Negroni</span>
+      </div>
+      <div class="cocktail-img-cell">
+        <img src="img/cocktail_pink.jpg" alt="Cocktail rosa highball con ice e fetta d'arancia">
+        <span class="cocktail-img-label">Signature pink</span>
+      </div>
+      <div class="cocktail-img-cell">
+        <img src="img/cocktail_card.jpg" alt="Cocktail con dettaglio firma El Viaje">
+        <span class="cocktail-img-label">El detalle</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── CUCINA GALLERY ─────────────────────────── -->
+<section id="cucina">
+  <div class="cucina-header">
+    <div>
+      <p class="eyebrow reveal">Dalla cucina</p>
+      <h2 class="display-title reveal reveal-2">
+        Sapori <span class="italic">del viaggio</span>.
+      </h2>
+    </div>
+    <p class="cucina-header-lead reveal reveal-3">
+      Tradizione iberica, anima mediterranea.<br>
+      Il meglio delle due sponde, in piccole porzioni.
+    </p>
+  </div>
+
+  <div class="cucina-gallery">
+    <div class="cucina-cell big-v reveal">
+      <img src="img/post_tapas.jpg" alt="Aperitivo o cena? Da El Viaje entrambi">
+      <div class="cucina-cell-caption">
+        <div class="cucina-cell-caption-title">Aperitivo o cena?</div>
+        <div class="cucina-cell-caption-desc">Da noi puoi fare entrambi.</div>
+      </div>
+    </div>
+    <div class="cucina-cell wide reveal reveal-2">
+      <img src="img/wine_sharing.jpg" alt="Vino e tapas condivisi tra amici">
+      <div class="cucina-cell-caption">
+        <div class="cucina-cell-caption-title">El compartir</div>
+        <div class="cucina-cell-caption-desc">Ogni piatto è pensato per essere diviso.</div>
+      </div>
+    </div>
+    <div class="cucina-cell wide reveal reveal-3">
+      <img src="img/wine_toast.jpg" alt="Brindisi con vino bianco e tartare">
+      <div class="cucina-cell-caption">
+        <div class="cucina-cell-caption-title">¡Salud!</div>
+        <div class="cucina-cell-caption-desc">Il brindisi che apre ogni viaggio.</div>
+      </div>
+    </div>
+    <div class="cucina-cell wide reveal reveal-2">
+      <img src="img/post_negroni.jpg" alt="Il bartender presenta il suo Americano">
+      <div class="cucina-cell-caption">
+        <div class="cucina-cell-caption-title">Più del solito Americano</div>
+        <div class="cucina-cell-caption-desc">Una rilettura firmata El Viaje.</div>
+      </div>
+    </div>
+    <div class="cucina-cell wide reveal reveal-3">
+      <img src="img/cocktail_card.jpg" alt="Dettaglio cocktail con firma personalizzata">
+      <div class="cucina-cell-caption">
+        <div class="cucina-cell-caption-title">Il dettaglio</div>
+        <div class="cucina-cell-caption-desc">Ogni cocktail, una piccola firma.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cucina-footer reveal">
+    <p class="cucina-footer-text">
+      Il menu cambia con le stagioni e con la disponibilità del pescato.
+      Per conoscere le proposte della settimana, scrivici su WhatsApp.
+    </p>
+    <a href="https://wa.me/393928317628?text=Ciao!%20Vorrei%20info%20sul%20menu%20di%20questa%20settimana." class="btn-wa" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Scopri il menu di oggi
+    </a>
+  </div>
+</section>
+
+<!-- ─────────────────────────── PRESS / RECENSIONE ─────────────────────────── -->
+<section id="press">
+  <div class="press-bg"></div>
+  <div class="press-content">
+    <div class="press-stars reveal">★ ★ ★ ★ ★</div>
+    <blockquote class="press-quote reveal reveal-2">
+      « Un <span class="highlight">viaggio appassionato</span> tra tapas, cocktail e sapori fusion.
+      Un ambiente <span class="highlight">ricercato e vivace</span>, con un elegante dehors. »
+    </blockquote>
+    <p class="press-author reveal reveal-3">Di Testa e Di Gola</p>
+    <p class="press-author-detail reveal reveal-3">Angela D'Esposito · Aprile 2026</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────── DEHORS ─────────────────────────── -->
+<section id="dehors">
+  <div class="dehors-image reveal">
+    <img src="img/wine_sharing.jpg" alt="Tavolo all'aperto con vini e tapas">
+  </div>
+  <div class="dehors-content">
+    <p class="eyebrow reveal">L'ambiente</p>
+    <h2 class="display-title reveal reveal-2">
+      Dentro o <span class="italic-terra" style="color:var(--terra-soft);font-style:italic">all'aperto</span>.<br>
+      Sempre a casa.
+    </h2>
+    <div class="dehors-list">
+      <div class="dehors-item reveal reveal-3">
+        <span class="dehors-item-dot"></span>
+        <div class="dehors-item-text">
+          <strong>Dehors elegante</strong>
+          Quando il tempo lo permette, scegli il dehors all'aperto — perfetto per
+          aperitivi al tramonto e cene sotto le stelle.
+        </div>
+      </div>
+      <div class="dehors-item reveal reveal-4">
+        <span class="dehors-item-dot"></span>
+        <div class="dehors-item-text">
+          <strong>Sala interna</strong>
+          Verde profondo, luci calde e bottiglie ovunque. L'atmosfera giusta
+          per una serata che dura.
+        </div>
+      </div>
+      <div class="dehors-item reveal reveal-5">
+        <span class="dehors-item-dot"></span>
+        <div class="dehors-item-text">
+          <strong>Live music & serate a tema</strong>
+          Periodicamente musica dal vivo e serate dedicate — seguici su Instagram
+          per non perdere i prossimi appuntamenti.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── PRENOTA ─────────────────────────── -->
+<section id="prenota">
+  <div class="prenota-grid">
+    <div class="prenota-content">
+      <p class="eyebrow reveal">Vieni a trovarci</p>
+      <h2 class="display-title reveal reveal-2">
+        Inizia <span class="italic">il tuo viaggio</span>.
+      </h2>
+      <p class="prenota-lead reveal reveal-3">
+        Posti limitati. Per essere sicuri di trovarci un tavolo,
+        meglio scriverci un messaggio.
+      </p>
+
+      <div class="prenota-info">
+        <div class="info-row reveal reveal-3">
+          <div class="info-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div>
+            <p class="info-label">Indirizzo</p>
+            <p class="info-value">Via Filippo Turati 7<br>87028 Praia a Mare (CS), Calabria</p>
+          </div>
+        </div>
+
+        <div class="info-row reveal reveal-4">
+          <div class="info-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 7v5l3 2"/>
+            </svg>
+          </div>
+          <div>
+            <p class="info-label">Orari</p>
+            <div class="orari-grid">
+              <span class="orari-day">Lunedì</span><span class="orari-time orari-closed">Chiuso</span>
+              <span class="orari-day">Mar – Gio</span><span class="orari-time">18:00 – 00:30</span>
+              <span class="orari-day">Ven – Sab</span><span class="orari-time">18:00 – 01:30</span>
+              <span class="orari-day">Domenica</span><span class="orari-time">18:00 – 00:30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-row reveal reveal-5">
+          <div class="info-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="info-label">Contatti</p>
+            <p class="info-value"><a href="tel:+393928317628">+39 392 831 7628</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="prenota-ctas">
+        <a href="https://wa.me/393928317628?text=Ciao%20El%20Viaje!%20Vorrei%20prenotare%20un%20tavolo." class="btn-wa" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Prenota su WhatsApp
+        </a>
+        <a href="tel:+393928317628" class="btn-ghost" style="border-color: var(--verde); color: var(--verde);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Chiama
+        </a>
+      </div>
+    </div>
+
+    <div class="prenota-map reveal">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.2!2d15.7774!3d39.8937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13429cbe0bfc6fbb%3A0x1c2cd7ef4c7e3fc4!2sVia%20Filippo%20Turati%2C%207%2C%2087028%20Praia%20a%20Mare%20CS!5e0!3m2!1sit!2sit!4v1716200000000" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="El Viaje — Mappa"></iframe>
+      <div class="prenota-map-frame"></div>
+      <div class="prenota-map-marker">El Viaje</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── FOOTER ─────────────────────────── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">El Viaje</div>
+      <p class="footer-brand-tag">Tapas · Cocktail · Wine</p>
+      <p class="footer-brand-text">
+        Un viaggio appassionato tra Spagna e Italia,
+        nel cuore di Praia a Mare.
+      </p>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Esplora</p>
+      <ul class="footer-links">
+        <li><a href="#storia">Chi siamo</a></li>
+        <li><a href="#esperienza">Le tapas</a></li>
+        <li><a href="#cocktail">Cocktail</a></li>
+        <li><a href="#cucina">Cucina</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Vieni a trovarci</p>
+      <ul class="footer-links">
+        <li><a href="#prenota">Prenota un tavolo</a></li>
+        <li><a href="tel:+393928317628">+39 392 831 7628</a></li>
+        <li><a href="https://maps.google.com/?q=Via+Filippo+Turati+7,+Praia+a+Mare" target="_blank" rel="noopener">Via Turati 7, Praia a Mare</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Seguici</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/elviajetapascocktailwine/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/p/El-Viaje-TapasCocktailWine-61584834316169/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://wa.me/393928317628" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 El Viaje — Tapas · Cocktail · Wine. Tutti i diritti riservati.</p>
+    <p class="footer-agency">Demo by <a href="#">Viktoria Agency</a></p>
+  </div>
+</footer>
+
+<a href="https://wa.me/393928317628?text=Ciao%20El%20Viaje!" class="wa-float" target="_blank" rel="noopener" aria-label="Prenota su WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // Burger
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    burger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }));
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
