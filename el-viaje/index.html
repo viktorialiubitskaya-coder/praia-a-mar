@@ -12,7 +12,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* Palette ispirata al locale: verde bottiglia profondo, crema, terra spagnola */
       --verde:        #0d4d3f;
       --verde-scuro:  #082821;
       --verde-deep:   #051a14;
@@ -33,7 +32,6 @@
       --font-hand:    'Caveat', cursive;
       --font-body:    'Inter', system-ui, sans-serif;
       --ease:         cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     html { scroll-behavior: smooth; }
@@ -50,7 +48,7 @@
     a { color: inherit; text-decoration: none; }
     button { font-family: inherit; cursor: pointer; }
 
-    /* Texture: subtle film grain over everything */
+    /* Subtle film grain over everything */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -61,7 +59,7 @@
       mix-blend-mode: overlay;
     }
 
-    /* Scroll reveal */
+    /* Reveal */
     .reveal { opacity: 0; transform: translateY(32px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-2 { transition-delay: 0.1s; }
@@ -69,30 +67,40 @@
     .reveal-4 { transition-delay: 0.3s; }
     .reveal-5 { transition-delay: 0.4s; }
 
-    /* ─────────────────────────────────────── NAVIGATION ─────────────────────────────────────── */
+    /* ─────────────────── NAVIGATION ─────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 1.4rem clamp(1.5rem, 5vw, 4rem);
+      padding: 1.2rem clamp(1.5rem, 5vw, 4rem);
       display: flex; align-items: center; justify-content: space-between;
       transition: all 0.5s var(--ease);
     }
     nav.scrolled {
-      background: rgba(5, 26, 20, 0.85);
+      background: rgba(5, 26, 20, 0.88);
       backdrop-filter: blur(24px) saturate(140%);
       -webkit-backdrop-filter: blur(24px) saturate(140%);
-      padding-top: 0.9rem; padding-bottom: 0.9rem;
+      padding-top: 0.8rem; padding-bottom: 0.8rem;
       border-bottom: 1px solid var(--line);
     }
     .nav-brand {
+      display: flex; align-items: center; gap: 0.65rem;
       font-family: var(--font-display);
       font-style: italic;
       font-size: 1.55rem;
       font-weight: 500;
       color: var(--crema);
       letter-spacing: 0.01em;
-      display: flex; align-items: baseline; gap: 0.4rem;
     }
+    .nav-brand-logo {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: var(--crema);
+      padding: 2px;
+      flex-shrink: 0;
+      transition: transform 0.4s var(--ease);
+    }
+    .nav-brand:hover .nav-brand-logo { transform: rotate(-8deg) scale(1.08); }
     .nav-brand-dot { color: var(--terra); }
+
     .nav-links { display: flex; gap: 2.4rem; list-style: none; align-items: center; }
     .nav-links a {
       font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
@@ -139,7 +147,7 @@
       .nav-burger { display: flex; }
     }
 
-    /* ─────────────────────────────────────── SHARED ─────────────────────────────────────── */
+    /* ─────────────────── SHARED ─────────────────── */
     .eyebrow {
       font-size: 0.68rem;
       letter-spacing: 0.32em;
@@ -171,13 +179,7 @@
       color: var(--crema-soft);
       max-width: 52ch;
     }
-    .body-text {
-      font-size: 0.96rem;
-      line-height: 1.78;
-      color: rgba(245,240,230,0.78);
-    }
 
-    /* Buttons */
     .btn-primary {
       display: inline-flex; align-items: center; gap: 0.7rem;
       background: var(--terra); color: var(--crema);
@@ -212,7 +214,7 @@
     }
     .btn-wa:hover { background: #1fb855; }
 
-    /* ─────────────────────────────────────── HERO ─────────────────────────────────────── */
+    /* ─────────────────── HERO ─────────────────── */
     #hero {
       position: relative;
       min-height: 100svh;
@@ -220,38 +222,73 @@
       justify-content: center;
       padding: 8rem clamp(1.5rem, 6vw, 5rem) 4rem;
       overflow: hidden;
-      background: var(--verde);
+      background: var(--verde-scuro);
     }
-    /* Subtle radial light from top-left, like a spotlight in the bar */
+    .hero-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.42) saturate(1.05);
+      z-index: 0;
+    }
+    /* Gradient overlay: from verde-scuro at edges to transparent center, plus bottom darkening */
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 50%, transparent 0%, rgba(8,40,33,0.4) 60%, rgba(5,26,20,0.85) 100%),
+        linear-gradient(to bottom, rgba(8,40,33,0.3) 0%, transparent 30%, rgba(5,26,20,0.6) 100%);
+      z-index: 1;
+    }
     .hero-glow {
       position: absolute; top: -20%; left: -10%;
       width: 60%; aspect-ratio: 1;
-      background: radial-gradient(circle, rgba(212,160,23,0.18) 0%, transparent 60%);
+      background: radial-gradient(circle, rgba(212,160,23,0.22) 0%, transparent 60%);
       pointer-events: none;
       animation: glow-drift 18s ease-in-out infinite alternate;
+      z-index: 1;
     }
     @keyframes glow-drift {
       0% { transform: translate(0, 0) scale(1); }
       100% { transform: translate(8%, 5%) scale(1.15); }
     }
-    /* Vertical stripes evoking the bar shelf - very subtle */
-    .hero-stripes {
-      position: absolute; inset: 0;
-      background-image: repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(245,240,230,0.025) 80px, rgba(245,240,230,0.025) 81px);
-      pointer-events: none;
-    }
 
     .hero-meta {
-      position: absolute; top: 7rem; left: clamp(1.5rem, 6vw, 5rem);
+      position: absolute; top: 6.5rem; left: clamp(1.5rem, 6vw, 5rem);
       font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--muted);
+      color: var(--crema-soft);
       display: flex; align-items: center; gap: 0.85rem;
       animation: fade-up 1s var(--ease) 0.2s both;
+      z-index: 3;
     }
-    .hero-meta-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--terra); animation: pulse 2.4s ease-in-out infinite; }
+    .hero-meta-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--terra-soft); animation: pulse 2.4s ease-in-out infinite; }
+    .hero-meta-sep { opacity: 0.4; }
     @keyframes pulse {
       0%, 100% { opacity: 0.4; transform: scale(0.85); }
       50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    .hero-character {
+      position: absolute;
+      top: clamp(7rem, 13vh, 11rem);
+      right: clamp(2rem, 7vw, 6rem);
+      width: clamp(80px, 12vw, 130px);
+      height: clamp(80px, 12vw, 130px);
+      border-radius: 50%;
+      background: var(--crema);
+      padding: 4px;
+      z-index: 3;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      animation: char-float 4s ease-in-out infinite, fade-up 1s var(--ease) 1.3s both;
+      transition: transform 0.4s var(--ease);
+    }
+    .hero-character:hover { transform: rotate(-8deg) scale(1.06); }
+    @keyframes char-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @media (max-width: 700px) {
+      .hero-character { top: auto; bottom: 5rem; right: 1.5rem; width: 70px; height: 70px; }
     }
 
     .hero-content {
@@ -278,6 +315,7 @@
       color: var(--crema);
       margin-bottom: 2rem;
       animation: fade-up 1.2s var(--ease) 0.55s both;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.3);
     }
     .hero-title .italic-terra {
       font-style: italic;
@@ -303,6 +341,7 @@
       max-width: 38ch;
       margin-bottom: 3rem;
       animation: fade-up 1s var(--ease) 0.75s both;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
     }
 
     .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; animation: fade-up 1s var(--ease) 0.95s both; }
@@ -316,18 +355,18 @@
     }
     .hero-coords {
       font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--muted); line-height: 1.6;
+      color: var(--crema-soft); line-height: 1.6;
     }
-    .hero-coords strong { color: var(--crema-soft); font-weight: 400; }
+    .hero-coords strong { color: var(--crema); font-weight: 400; }
     .hero-scroll-hint {
       writing-mode: vertical-rl;
       font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--muted);
+      color: var(--crema-soft);
       display: flex; align-items: center; gap: 0.7rem;
     }
     .hero-scroll-hint::after {
       content: ''; width: 1px; height: 36px;
-      background: linear-gradient(to bottom, var(--terra), transparent);
+      background: linear-gradient(to bottom, var(--terra-soft), transparent);
       animation: scroll-pulse 2s ease-in-out infinite;
     }
     @keyframes scroll-pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
@@ -336,10 +375,10 @@
     @media (max-width: 700px) {
       .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
       .hero-scroll-hint { writing-mode: horizontal-tb; }
-      .hero-scroll-hint::after { width: 36px; height: 1px; background: linear-gradient(to right, var(--terra), transparent); }
+      .hero-scroll-hint::after { width: 36px; height: 1px; background: linear-gradient(to right, var(--terra-soft), transparent); }
     }
 
-    /* ─────────────────────────────────────── MARQUEE STRIP ─────────────────────────────────────── */
+    /* ─────────────────── MARQUEE ─────────────────── */
     .marquee {
       background: var(--terra);
       color: var(--verde-deep);
@@ -360,7 +399,7 @@
     .marquee-item::after { content: '✦'; color: var(--verde-deep); }
     @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* ─────────────────────────────────────── STORIA ─────────────────────────────────────── */
+    /* ─────────────────── STORIA ─────────────────── */
     #storia {
       background: var(--crema);
       color: var(--verde-scuro);
@@ -404,8 +443,6 @@
       font-weight: 500;
     }
 
-    .storia-content .eyebrow { color: var(--terra); }
-    .storia-content .eyebrow::before { background: var(--terra); }
     .storia-content .display-title { color: var(--verde-scuro); }
     .storia-content .display-title .italic { color: var(--terra); }
 
@@ -439,10 +476,9 @@
       color: var(--muted-dark);
     }
 
-    /* Decorative big quotation mark */
     .storia-deco {
       position: absolute;
-      top: 10%; right: 5%;
+      top: 8%; right: 4%;
       font-family: var(--font-display);
       font-size: 28rem;
       line-height: 0.7;
@@ -452,7 +488,7 @@
       user-select: none;
     }
 
-    /* ─────────────────────────────────────── ESPERIENZA / TAPAS CULTURE ─────────────────────────────────────── */
+    /* ─────────────────── ESPERIENZA / TAPAS CULTURE ─────────────────── */
     #esperienza {
       background: var(--verde);
       padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 6vw, 5rem);
@@ -537,7 +573,119 @@
       color: var(--terra-soft);
     }
 
-    /* ─────────────────────────────────────── COCKTAIL ─────────────────────────────────────── */
+    /* ─────────────────── CUCINA — REAL DISHES GALLERY ─────────────────── */
+    #cucina {
+      background: var(--crema);
+      color: var(--verde-scuro);
+      padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 6vw, 5rem);
+    }
+    .cucina-header {
+      max-width: 1300px;
+      margin: 0 auto 4rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+    }
+    @media (max-width: 700px) { .cucina-header { grid-template-columns: 1fr; } }
+
+    .cucina-header .display-title { color: var(--verde-scuro); }
+    .cucina-header .display-title .italic { color: var(--terra); }
+    .cucina-header-lead {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--muted-dark);
+      max-width: 32ch;
+      line-height: 1.55;
+    }
+
+    .cucina-grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--line-dark);
+      border: 1px solid var(--line-dark);
+    }
+    @media (max-width: 900px) { .cucina-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .cucina-grid { grid-template-columns: 1fr; } }
+
+    .dish-card {
+      background: var(--crema);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .dish-card:hover { background: #faf5ea; }
+    .dish-image {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+    .dish-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.8s var(--ease), filter 0.5s;
+    }
+    .dish-card:hover .dish-image img { transform: scale(1.06); }
+    .dish-image::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,40,33,0.15), transparent 50%);
+      pointer-events: none;
+    }
+    .dish-num {
+      position: absolute; top: 1rem; left: 1rem;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--crema);
+      background: var(--verde);
+      padding: 0.3rem 0.6rem;
+      letter-spacing: 0.08em;
+      z-index: 2;
+    }
+    .dish-body {
+      padding: 1.6rem 1.5rem 1.8rem;
+    }
+    .dish-category {
+      font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--terra); margin-bottom: 0.55rem; font-weight: 500;
+    }
+    .dish-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--verde-scuro);
+      line-height: 1.25;
+      margin-bottom: 0.6rem;
+    }
+    .dish-name em { font-style: italic; color: var(--terra); }
+    .dish-desc {
+      font-size: 0.86rem;
+      color: var(--muted-dark);
+      line-height: 1.65;
+    }
+
+    .cucina-footer {
+      max-width: 1200px;
+      margin: 4rem auto 0;
+      text-align: center;
+      padding-top: 3rem;
+      border-top: 1px solid var(--line-dark);
+    }
+    .cucina-footer-text {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--verde);
+      margin-bottom: 1.5rem;
+      max-width: 56ch;
+      margin-left: auto; margin-right: auto;
+      line-height: 1.55;
+    }
+
+    /* ─────────────────── COCKTAIL ─────────────────── */
     #cocktail {
       background: var(--verde-scuro);
       padding: 0;
@@ -564,7 +712,7 @@
     .cocktail-img-cell img {
       width: 100%; height: 100%; object-fit: cover;
       transition: transform 0.8s var(--ease), filter 0.5s;
-      filter: saturate(0.85) brightness(0.85);
+      filter: saturate(0.9) brightness(0.88);
     }
     .cocktail-img-cell:hover img { transform: scale(1.08); filter: saturate(1.1) brightness(1); }
     .cocktail-img-cell::after {
@@ -631,126 +779,62 @@
       line-height: 1.5;
     }
 
-    .cocktail-callout {
-      background: rgba(245,240,230,0.04);
-      border: 1px solid var(--line);
-      border-left: 2px solid var(--terra);
-      padding: 1.3rem 1.6rem;
-      margin-top: 1rem;
-    }
-    .cocktail-callout-label {
-      font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--terra-soft); margin-bottom: 0.5rem; font-weight: 500;
-    }
-    .cocktail-callout-text { font-size: 0.9rem; color: var(--crema-soft); line-height: 1.65; }
-
-    /* ─────────────────────────────────────── CUCINA GALLERY ─────────────────────────────────────── */
-    #cucina {
-      background: var(--crema);
-      color: var(--verde-scuro);
-      padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 6vw, 5rem);
-    }
-    .cucina-header {
-      max-width: 1200px;
-      margin: 0 auto 4rem;
+    /* ─────────────────── SPIRITO ALCHEMICO ─────────────────── */
+    #spirito {
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2rem;
-      align-items: end;
+      grid-template-columns: 1fr 1fr;
+      background: var(--verde);
+      min-height: 560px;
     }
-    @media (max-width: 700px) { .cucina-header { grid-template-columns: 1fr; } }
-
-    .cucina-header .eyebrow { color: var(--terra); }
-    .cucina-header .eyebrow::before { background: var(--terra); }
-    .cucina-header .display-title { color: var(--verde-scuro); }
-    .cucina-header .display-title .italic { color: var(--terra); }
-    .cucina-header-lead {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 1.05rem;
-      color: var(--muted-dark);
-      max-width: 32ch;
-      line-height: 1.55;
-    }
-
-    .cucina-gallery {
-      max-width: 1300px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      grid-template-rows: repeat(2, 320px);
-      gap: 4px;
-    }
-    @media (max-width: 900px) {
-      .cucina-gallery { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 240px); }
-    }
-    .cucina-cell {
+    @media (max-width: 900px) { #spirito { grid-template-columns: 1fr; } }
+    .spirito-image {
       position: relative; overflow: hidden;
-      background: var(--verde-scuro);
+      min-height: 380px;
     }
-    .cucina-cell img {
+    .spirito-image img {
       width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.9s var(--ease), filter 0.5s;
+      transition: transform 1.2s var(--ease);
     }
-    .cucina-cell:hover img { transform: scale(1.06); }
-    /* Hover caption overlay */
-    .cucina-cell-caption {
-      position: absolute; inset: auto 0 0 0;
-      padding: 1.4rem 1.2rem 1.1rem;
-      background: linear-gradient(to top, rgba(8,40,33,0.92), transparent);
-      color: var(--crema);
-      transform: translateY(100%);
-      transition: transform 0.5s var(--ease);
+    .spirito-image:hover img { transform: scale(1.04); }
+    .spirito-content {
+      padding: clamp(3rem, 7vw, 6rem) clamp(1.8rem, 5vw, 4.5rem);
+      display: flex; flex-direction: column; justify-content: center;
     }
-    .cucina-cell:hover .cucina-cell-caption { transform: translateY(0); }
-    .cucina-cell-caption-title {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 1.05rem;
-      margin-bottom: 0.15rem;
+    .spirito-content .display-title { color: var(--crema); }
+    .spirito-content .display-title .italic { color: var(--terra-soft); font-style: italic; }
+    .spirito-body {
+      color: rgba(245,240,230,0.82);
+      font-size: 1rem;
+      line-height: 1.78;
+      margin: 1.5rem 0 2rem;
     }
-    .cucina-cell-caption-desc {
-      font-size: 0.75rem;
-      color: rgba(245,240,230,0.75);
-      line-height: 1.45;
+    .spirito-bottles { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+    .spirito-bottle {
+      display: flex; align-items: baseline; gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px dashed var(--line);
     }
-
-    /* Layout: 1 large, others smaller */
-    .cucina-cell.big-h {
-      grid-column: span 3;
-    }
-    .cucina-cell.big-v {
-      grid-column: span 2;
-      grid-row: span 2;
-    }
-    .cucina-cell.normal { grid-column: span 1; }
-    .cucina-cell.wide { grid-column: span 2; }
-
-    @media (max-width: 900px) {
-      .cucina-cell.big-h, .cucina-cell.big-v, .cucina-cell.normal, .cucina-cell.wide {
-        grid-column: span 1; grid-row: span 1;
-      }
-    }
-
-    .cucina-footer {
-      max-width: 1200px;
-      margin: 4rem auto 0;
-      text-align: center;
-      padding-top: 3rem;
-      border-top: 1px solid var(--line-dark);
-    }
-    .cucina-footer-text {
+    .spirito-bottle-name {
       font-family: var(--font-display);
       font-style: italic;
       font-size: 1.1rem;
-      color: var(--verde);
-      margin-bottom: 1.5rem;
-      max-width: 50ch;
-      margin-left: auto; margin-right: auto;
+      color: var(--terra-soft);
+      min-width: 130px;
+    }
+    .spirito-bottle-desc {
+      font-size: 0.86rem;
+      color: rgba(245,240,230,0.7);
       line-height: 1.55;
     }
+    .spirito-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--terra-soft);
+      font-weight: 500;
+    }
+    .spirito-tag::before { content: '✦'; font-size: 0.9rem; }
 
-    /* ─────────────────────────────────────── PRESS ─────────────────────────────────────── */
+    /* ─────────────────── PRESS / RECENSIONE ─────────────────── */
     #press {
       position: relative;
       padding: clamp(6rem, 12vw, 11rem) clamp(1.5rem, 6vw, 5rem);
@@ -798,15 +882,14 @@
       font-family: var(--font-display); font-style: italic;
     }
 
-    /* ─────────────────────────────────────── DEHORS / AMBIENTE ─────────────────────────────────────── */
+    /* ─────────────────── DEHORS ─────────────────── */
     #dehors {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
-      background: var(--verde);
-      min-height: 560px;
+      background: var(--verde-scuro);
+      min-height: 520px;
     }
     @media (max-width: 900px) { #dehors { grid-template-columns: 1fr; } }
-
     .dehors-image {
       position: relative; overflow: hidden;
       min-height: 360px;
@@ -816,13 +899,14 @@
       transition: transform 1.2s var(--ease);
     }
     .dehors-image:hover img { transform: scale(1.05); }
-
     .dehors-content {
       padding: clamp(3rem, 7vw, 6rem) clamp(1.8rem, 5vw, 4.5rem);
       display: flex; flex-direction: column; justify-content: center;
     }
     .dehors-content .display-title { color: var(--crema); }
-    .dehors-content .display-title .italic { color: var(--terra-soft); }
+    .dehors-content .display-title .italic-terra {
+      color: var(--terra-soft); font-style: italic; font-weight: 400;
+    }
     .dehors-list { margin: 2rem 0; display: flex; flex-direction: column; gap: 1.3rem; }
     .dehors-item {
       display: flex; align-items: flex-start; gap: 1.1rem;
@@ -850,7 +934,7 @@
       margin-bottom: 0.15rem;
     }
 
-    /* ─────────────────────────────────────── INFO / PRENOTA ─────────────────────────────────────── */
+    /* ─────────────────── PRENOTA ─────────────────── */
     #prenota {
       background: var(--crema);
       color: var(--verde-scuro);
@@ -866,8 +950,6 @@
     }
     @media (max-width: 900px) { .prenota-grid { grid-template-columns: 1fr; } }
 
-    .prenota-content .eyebrow { color: var(--terra); }
-    .prenota-content .eyebrow::before { background: var(--terra); }
     .prenota-content .display-title { color: var(--verde-scuro); }
     .prenota-content .display-title .italic { color: var(--terra); }
     .prenota-lead {
@@ -940,7 +1022,7 @@
       border-top-color: var(--terra);
     }
 
-    /* ─────────────────────────────────────── FOOTER ─────────────────────────────────────── */
+    /* ─────────────────── FOOTER ─────────────────── */
     footer {
       background: var(--verde-deep);
       padding: 4rem clamp(1.5rem, 6vw, 5rem) 2rem;
@@ -958,13 +1040,24 @@
     @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
     @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
 
+    .footer-brand-row {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .footer-brand-logo {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: var(--crema);
+      padding: 3px;
+      flex-shrink: 0;
+    }
     .footer-brand-name {
       font-family: var(--font-display);
       font-style: italic;
-      font-size: 2.2rem;
+      font-size: 2rem;
       color: var(--crema);
-      margin-bottom: 0.6rem;
       font-weight: 400;
+      line-height: 1;
     }
     .footer-brand-tag {
       font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
@@ -975,7 +1068,7 @@
       font-style: italic;
       font-size: 1rem;
       color: var(--muted);
-      max-width: 32ch;
+      max-width: 34ch;
       line-height: 1.5;
     }
 
@@ -1018,7 +1111,7 @@
     .footer-agency a { color: var(--muted); transition: color 0.2s; }
     .footer-agency a:hover { color: var(--terra); }
 
-    /* ─────────────────────────────────────── WHATSAPP FLOAT ─────────────────────────────────────── */
+    /* ─────────────────── WHATSAPP FLOAT ─────────────────── */
     .wa-float {
       position: fixed; bottom: 1.5rem; right: 1.5rem;
       z-index: 90;
@@ -1041,13 +1134,16 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#hero" class="nav-brand">El Viaje<span class="nav-brand-dot">·</span></a>
+  <a href="#hero" class="nav-brand">
+    <img src="img/logo-character.png" alt="El Viaje" class="nav-brand-logo">
+    <span>El Viaje<span class="nav-brand-dot">·</span></span>
+  </a>
   <ul class="nav-links">
     <li><a href="#storia">Chi siamo</a></li>
     <li><a href="#esperienza">Tapas</a></li>
-    <li><a href="#cocktail">Cocktail</a></li>
     <li><a href="#cucina">Cucina</a></li>
-    <li><a href="#prenota">Prenota</a></li>
+    <li><a href="#cocktail">Cocktail</a></li>
+    <li><a href="#prenota">Contatti</a></li>
     <li><a href="#prenota" class="nav-cta">Prenota</a></li>
   </ul>
   <button class="nav-burger" id="burger" aria-label="Menu">
@@ -1058,20 +1154,23 @@
 <div class="mobile-menu" id="mobile-menu">
   <a href="#storia">Chi siamo</a>
   <a href="#esperienza">Le tapas</a>
-  <a href="#cocktail">Cocktail</a>
   <a href="#cucina">Cucina</a>
+  <a href="#cocktail">Cocktail</a>
   <a href="#prenota">Prenota</a>
 </div>
 
-<!-- ─────────────────────────── HERO ─────────────────────────── -->
+<!-- ─────────────────── HERO ─────────────────── -->
 <section id="hero">
+  <img src="img/team_bar.jpg" alt="" class="hero-bg" aria-hidden="true">
+  <div class="hero-overlay"></div>
   <div class="hero-glow"></div>
-  <div class="hero-stripes"></div>
+
+  <img src="img/logo-character.png" alt="El Viaje mascotte" class="hero-character">
 
   <div class="hero-meta">
     <span class="hero-meta-dot"></span>
     <span>Praia a Mare · Calabria</span>
-    <span style="opacity:0.4">/</span>
+    <span class="hero-meta-sep">/</span>
     <span>Aperti questa sera 18:00 – 00:30</span>
   </div>
 
@@ -1104,7 +1203,7 @@
   </div>
 </section>
 
-<!-- ─────────────────────────── MARQUEE ─────────────────────────── -->
+<!-- ─────────────────── MARQUEE ─────────────────── -->
 <div class="marquee">
   <div class="marquee-track">
     <div class="marquee-item">Tapas</div>
@@ -1122,13 +1221,13 @@
   </div>
 </div>
 
-<!-- ─────────────────────────── STORIA ─────────────────────────── -->
+<!-- ─────────────────── STORIA ─────────────────── -->
 <section id="storia">
   <div class="storia-deco">"</div>
   <div class="storia-grid">
     <div class="storia-image reveal">
-      <img src="img/team_bar.jpg" alt="Pietro Sangineto e la sua compagna dietro al bancone di El Viaje">
-      <div class="storia-image-tag">Pietro & la sua compagna</div>
+      <img src="img/team_bar.jpg" alt="Dietro al bancone di El Viaje a Praia a Mare">
+      <div class="storia-image-tag">Dietro al bancone</div>
     </div>
     <div class="storia-content">
       <p class="eyebrow reveal">La nostra storia</p>
@@ -1151,16 +1250,15 @@
       </p>
       <div class="storia-signature reveal reveal-5">
         <span class="storia-signature-name">Pietro Sangineto</span>
-        <span class="storia-signature-role">&amp; compagna · Fondatori</span>
+        <span class="storia-signature-role">Founder · El Viaje</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────────────────────── ESPERIENZA / TAPAS ─────────────────────────── -->
+<!-- ─────────────────── ESPERIENZA / TAPAS ─────────────────── -->
 <section id="esperienza">
   <div class="esperienza-glow"></div>
-
   <div class="esperienza-header">
     <p class="eyebrow reveal">La cultura delle tapas</p>
     <h2 class="display-title reveal reveal-2">
@@ -1187,8 +1285,8 @@
       <span class="pillar-spanish">Variedad</span>
       <h3 class="pillar-title">Varietà senza confini</h3>
       <p class="pillar-text">
-        Pesce, carne, verdure, fritture, paste fresche, sapori iberici e mediterranei.
-        Piccole porzioni, grandi sorprese.
+        Pesce, carne, paste fresche, fritture: piccole porzioni che attraversano
+        sapori iberici e mediterranei.
       </p>
     </div>
     <div class="pillar reveal reveal-4">
@@ -1210,7 +1308,108 @@
   </div>
 </section>
 
-<!-- ─────────────────────────── COCKTAIL ─────────────────────────── -->
+<!-- ─────────────────── CUCINA — REAL DISHES ─────────────────── -->
+<section id="cucina">
+  <div class="cucina-header">
+    <div>
+      <p class="eyebrow reveal">Dalla cucina</p>
+      <h2 class="display-title reveal reveal-2">
+        Le nostre <span class="italic">tapas</span>.
+      </h2>
+    </div>
+    <p class="cucina-header-lead reveal reveal-3">
+      Una selezione che cambia con le stagioni e<br>
+      con la disponibilità del pescato.
+    </p>
+  </div>
+
+  <div class="cucina-grid">
+    <article class="dish-card reveal">
+      <div class="dish-image">
+        <span class="dish-num">01</span>
+        <img src="img/tapas_tartare.jpg" alt="Tartare di tonno con stracciatella e granella di pistacchio">
+      </div>
+      <div class="dish-body">
+        <p class="dish-category">Mare · Crudo</p>
+        <h3 class="dish-name">Tartare di tonno,<br><em>stracciatella & pistacchio</em></h3>
+        <p class="dish-desc">Tonno fresco al coltello, cuore di stracciatella pugliese, granella di pistacchio di Bronte.</p>
+      </div>
+    </article>
+
+    <article class="dish-card reveal reveal-2">
+      <div class="dish-image">
+        <span class="dish-num">02</span>
+        <img src="img/tapas_ravioli.jpg" alt="Ravioli ripieni con bisque e tartare di gambero rosso">
+      </div>
+      <div class="dish-body">
+        <p class="dish-category">Pasta fresca</p>
+        <h3 class="dish-name">Ravioli al <em>gambero rosso</em>,<br>bisque & tartare</h3>
+        <p class="dish-desc">Pasta fresca ripiena, salsa di bisque vellutata, tartare di gambero rosso a finire.</p>
+      </div>
+    </article>
+
+    <article class="dish-card reveal reveal-3">
+      <div class="dish-image">
+        <span class="dish-num">03</span>
+        <img src="img/tapas_pasta_cozze.jpg" alt="Linguine alla bottarga con cozze e crema di mare">
+      </div>
+      <div class="dish-body">
+        <p class="dish-category">Pasta · Mare</p>
+        <h3 class="dish-name">Linguine,<br>cozze & <em>bottarga</em></h3>
+        <p class="dish-desc">Linguine mantecate, cozze sgusciate, crema di mare e generosa grattugiata di bottarga.</p>
+      </div>
+    </article>
+
+    <article class="dish-card reveal">
+      <div class="dish-image">
+        <span class="dish-num">04</span>
+        <img src="img/tapas_crocchette.jpg" alt="Crocchette fritte con tartare di gambero crudo">
+      </div>
+      <div class="dish-body">
+        <p class="dish-category">Fritti · Mare</p>
+        <h3 class="dish-name">Crocchette croccanti,<br>tartare di <em>gambero crudo</em></h3>
+        <p class="dish-desc">Cuore morbido dentro, panatura dorata fuori — coronate da gambero crudo marinato.</p>
+      </div>
+    </article>
+
+    <article class="dish-card reveal reveal-2">
+      <div class="dish-image">
+        <span class="dish-num">05</span>
+        <img src="img/tapas_gnocchi.jpg" alt="Gnocchi alla norma con melanzane pomodoro e ricotta salata">
+      </div>
+      <div class="dish-body">
+        <p class="dish-category">Pasta · Terra</p>
+        <h3 class="dish-name">Gnocchi <em>alla norma</em>,<br>ricotta salata</h3>
+        <p class="dish-desc">Gnocchi fatti in casa, melanzane, pomodorini, basilico e abbondante ricotta salata.</p>
+      </div>
+    </article>
+
+    <article class="dish-card reveal reveal-3">
+      <div class="dish-image">
+        <span class="dish-num">06</span>
+        <img src="img/tapas_kitchen.jpg" alt="Piatti dello chef pronti in cucina a El Viaje">
+      </div>
+      <div class="dish-body">
+        <p class="dish-category">Chef's selection</p>
+        <h3 class="dish-name">Il <em>pase</em> della cucina</h3>
+        <p class="dish-desc">Una rotazione di piatti che cambia ogni settimana — chiedi al cameriere il suggerimento del giorno.</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="cucina-footer reveal">
+    <p class="cucina-footer-text">
+      Il menu varia con le stagioni e la disponibilità del pescato.<br>
+      Per la carta del giorno scrivici un messaggio.
+    </p>
+    <a href="https://wa.me/393928317628?text=Ciao!%20Vorrei%20info%20sul%20menu%20di%20questa%20settimana." class="btn-wa" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Scopri la carta del giorno
+    </a>
+  </div>
+</section>
+
+<!-- ─────────────────── COCKTAIL ─────────────────── -->
 <section id="cocktail">
   <div class="cocktail-grid">
     <div class="cocktail-content">
@@ -1218,7 +1417,7 @@
       <span class="cocktail-spanish reveal reveal-2">El arte de mezclar</span>
       <h2 class="display-title reveal reveal-2">
         Cocktail<br>
-        <span class="italic-terra" style="color:var(--terra-soft);font-style:italic">d'autore</span>.
+        <span class="italic">d'autore</span>.
       </h2>
       <p class="cocktail-body reveal reveal-3">
         Venticinque anni dietro al bancone si sentono al primo sorso. Ogni cocktail
@@ -1244,16 +1443,8 @@
           <span class="cocktail-item-desc">Cachaça · lime · zucchero</span>
         </div>
         <div class="cocktail-item">
-          <span class="cocktail-item-name">Selezione Vini</span>
+          <span class="cocktail-item-name">Selezione vini</span>
           <span class="cocktail-item-desc">Rossi · bianchi · al calice o bottiglia</span>
-        </div>
-      </div>
-
-      <div class="cocktail-callout reveal reveal-5">
-        <div class="cocktail-callout-label">In carta</div>
-        <div class="cocktail-callout-text">
-          Cura nella selezione di gin, rum, vermouth e amari — con uno sguardo
-          attento ai produttori locali e ai distillati di qualità.
         </div>
       </div>
     </div>
@@ -1268,83 +1459,52 @@
         <span class="cocktail-img-label">Negroni</span>
       </div>
       <div class="cocktail-img-cell">
-        <img src="img/cocktail_pink.jpg" alt="Cocktail rosa highball con ice e fetta d'arancia">
+        <img src="img/cocktail_pink.jpg" alt="Cocktail rosa highball">
         <span class="cocktail-img-label">Signature pink</span>
       </div>
       <div class="cocktail-img-cell">
-        <img src="img/cocktail_card.jpg" alt="Cocktail con dettaglio firma El Viaje">
+        <img src="img/cocktail_card.jpg" alt="Dettaglio cocktail con firma El Viaje">
         <span class="cocktail-img-label">El detalle</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────────────────────── CUCINA GALLERY ─────────────────────────── -->
-<section id="cucina">
-  <div class="cucina-header">
-    <div>
-      <p class="eyebrow reveal">Dalla cucina</p>
-      <h2 class="display-title reveal reveal-2">
-        Sapori <span class="italic">del viaggio</span>.
-      </h2>
-    </div>
-    <p class="cucina-header-lead reveal reveal-3">
-      Tradizione iberica, anima mediterranea.<br>
-      Il meglio delle due sponde, in piccole porzioni.
-    </p>
+<!-- ─────────────────── SPIRITO ALCHEMICO ─────────────────── -->
+<section id="spirito">
+  <div class="spirito-image reveal">
+    <img src="img/spirito_alchemico.jpg" alt="Bottiglie Spirito Alchemico: Cristina, Don Orsino, Doctor Claudius">
   </div>
-
-  <div class="cucina-gallery">
-    <div class="cucina-cell big-v reveal">
-      <img src="img/post_tapas.jpg" alt="Aperitivo o cena? Da El Viaje entrambi">
-      <div class="cucina-cell-caption">
-        <div class="cucina-cell-caption-title">Aperitivo o cena?</div>
-        <div class="cucina-cell-caption-desc">Da noi puoi fare entrambi.</div>
-      </div>
-    </div>
-    <div class="cucina-cell wide reveal reveal-2">
-      <img src="img/wine_sharing.jpg" alt="Vino e tapas condivisi tra amici">
-      <div class="cucina-cell-caption">
-        <div class="cucina-cell-caption-title">El compartir</div>
-        <div class="cucina-cell-caption-desc">Ogni piatto è pensato per essere diviso.</div>
-      </div>
-    </div>
-    <div class="cucina-cell wide reveal reveal-3">
-      <img src="img/wine_toast.jpg" alt="Brindisi con vino bianco e tartare">
-      <div class="cucina-cell-caption">
-        <div class="cucina-cell-caption-title">¡Salud!</div>
-        <div class="cucina-cell-caption-desc">Il brindisi che apre ogni viaggio.</div>
-      </div>
-    </div>
-    <div class="cucina-cell wide reveal reveal-2">
-      <img src="img/post_negroni.jpg" alt="Il bartender presenta il suo Americano">
-      <div class="cucina-cell-caption">
-        <div class="cucina-cell-caption-title">Più del solito Americano</div>
-        <div class="cucina-cell-caption-desc">Una rilettura firmata El Viaje.</div>
-      </div>
-    </div>
-    <div class="cucina-cell wide reveal reveal-3">
-      <img src="img/cocktail_card.jpg" alt="Dettaglio cocktail con firma personalizzata">
-      <div class="cucina-cell-caption">
-        <div class="cucina-cell-caption-title">Il dettaglio</div>
-        <div class="cucina-cell-caption-desc">Ogni cocktail, una piccola firma.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cucina-footer reveal">
-    <p class="cucina-footer-text">
-      Il menu cambia con le stagioni e con la disponibilità del pescato.
-      Per conoscere le proposte della settimana, scrivici su WhatsApp.
+  <div class="spirito-content">
+    <p class="eyebrow reveal">Liquori del territorio</p>
+    <span class="spirito-tag reveal reveal-2">Spirito Alchemico · Calabria</span>
+    <h2 class="display-title reveal reveal-2" style="margin-top: 1rem;">
+      Bottiglie<br>
+      <span class="italic">dal nostro mare</span>.
+    </h2>
+    <p class="spirito-body reveal reveal-3">
+      In carta una piccola selezione di liquori calabresi all'acqua di mare —
+      prodotti artigianali, etichette curate, sapori che raccontano il Tirreno.
     </p>
-    <a href="https://wa.me/393928317628?text=Ciao!%20Vorrei%20info%20sul%20menu%20di%20questa%20settimana." class="btn-wa" target="_blank" rel="noopener">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-      Scopri il menu di oggi
-    </a>
+
+    <div class="spirito-bottles">
+      <div class="spirito-bottle reveal reveal-4">
+        <span class="spirito-bottle-name">Cristina</span>
+        <span class="spirito-bottle-desc">Bitter vascolare all'acqua di mare</span>
+      </div>
+      <div class="spirito-bottle reveal reveal-4">
+        <span class="spirito-bottle-name">Don Orsino</span>
+        <span class="spirito-bottle-desc">Limoncello all'acqua di mare</span>
+      </div>
+      <div class="spirito-bottle reveal reveal-5">
+        <span class="spirito-bottle-name">Doctor Claudius</span>
+        <span class="spirito-bottle-desc">Amaro terapeutico all'acqua di mare</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ─────────────────────────── PRESS / RECENSIONE ─────────────────────────── -->
+<!-- ─────────────────── PRESS ─────────────────── -->
 <section id="press">
   <div class="press-bg"></div>
   <div class="press-content">
@@ -1358,15 +1518,15 @@
   </div>
 </section>
 
-<!-- ─────────────────────────── DEHORS ─────────────────────────── -->
+<!-- ─────────────────── DEHORS ─────────────────── -->
 <section id="dehors">
   <div class="dehors-image reveal">
-    <img src="img/wine_sharing.jpg" alt="Tavolo all'aperto con vini e tapas">
+    <img src="img/wine_sharing.jpg" alt="Tavolo con vini e tapas condivisi">
   </div>
   <div class="dehors-content">
     <p class="eyebrow reveal">L'ambiente</p>
     <h2 class="display-title reveal reveal-2">
-      Dentro o <span class="italic-terra" style="color:var(--terra-soft);font-style:italic">all'aperto</span>.<br>
+      Dentro o <span class="italic-terra">all'aperto</span>.<br>
       Sempre a casa.
     </h2>
     <div class="dehors-list">
@@ -1398,7 +1558,7 @@
   </div>
 </section>
 
-<!-- ─────────────────────────── PRENOTA ─────────────────────────── -->
+<!-- ─────────────────── PRENOTA ─────────────────── -->
 <section id="prenota">
   <div class="prenota-grid">
     <div class="prenota-content">
@@ -1407,7 +1567,7 @@
         Inizia <span class="italic">il tuo viaggio</span>.
       </h2>
       <p class="prenota-lead reveal reveal-3">
-        Posti limitati. Per essere sicuri di trovarci un tavolo,
+        Posti limitati. Per essere sicuri di trovare un tavolo,
         meglio scriverci un messaggio.
       </p>
 
@@ -1476,11 +1636,16 @@
   </div>
 </section>
 
-<!-- ─────────────────────────── FOOTER ─────────────────────────── -->
+<!-- ─────────────────── FOOTER ─────────────────── -->
 <footer>
   <div class="footer-grid">
     <div>
-      <div class="footer-brand-name">El Viaje</div>
+      <div class="footer-brand-row">
+        <img src="img/logo-character.png" alt="El Viaje" class="footer-brand-logo">
+        <div>
+          <div class="footer-brand-name">El Viaje</div>
+        </div>
+      </div>
       <p class="footer-brand-tag">Tapas · Cocktail · Wine</p>
       <p class="footer-brand-text">
         Un viaggio appassionato tra Spagna e Italia,
@@ -1493,8 +1658,8 @@
       <ul class="footer-links">
         <li><a href="#storia">Chi siamo</a></li>
         <li><a href="#esperienza">Le tapas</a></li>
-        <li><a href="#cocktail">Cocktail</a></li>
         <li><a href="#cucina">Cucina</a></li>
+        <li><a href="#cocktail">Cocktail</a></li>
       </ul>
     </div>
 
@@ -1534,13 +1699,11 @@
 </a>
 
 <script>
-  // Nav scroll state
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 60);
   }, { passive: true });
 
-  // Burger
   const burger = document.getElementById('burger');
   const mobileMenu = document.getElementById('mobile-menu');
   burger.addEventListener('click', () => {
@@ -1552,7 +1715,6 @@
     mobileMenu.classList.remove('open');
   }));
 
-  // Reveal on scroll
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
