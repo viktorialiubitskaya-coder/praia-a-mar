@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naïf Terra e Tradizione — RistoPub · Praia a Mare</title>
+<meta name="description" content="Naïf RistoPub a Praia a Mare. Cucina calabrese, tagli pregiati, birre artigianali. Aperto ogni sera tranne il martedì.">
+<meta property="og:title" content="Naïf Terra e Tradizione — RistoPub · Praia a Mare">
+<meta property="og:description" content="Cucina calabrese, tagli pregiati, birre artigianali. Serate a tema ogni settimana.">
+<meta property="og:image" content="https://viktorialiubitskaya-coder.github.io/praia-a-mar/naif/preview.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="800">
+<meta property="og:url" content="https://viktorialiubitskaya-coder.github.io/praia-a-mar/naif/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://viktorialiubitskaya-coder.github.io/praia-a-mar/naif/preview.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:         #0D0B0A;
+  --bg-2:       #1A1714;
+  --bg-3:       #252220;
+  --border:     #38342F;
+  --gold:       #C49A0A;
+  --gold-lt:    #F0BF2C;
+  --gold-faint: rgba(196,154,10,.10);
+  --ember:      #A84A0A;
+  --text:       #F2EDE4;
+  --muted:      #9A9188;
+  --fd: 'Cinzel', serif;
+  --fb: 'Source Sans 3', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:17px;line-height:1.7;overflow-x:hidden}
+
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.45;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='.07'/%3E%3C/svg%3E");
+  background-repeat:repeat;background-size:300px 300px;mix-blend-mode:screen}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:22px 48px;transition:background .4s,padding .3s,border .3s}
+nav.on{background:rgba(13,11,10,.94);backdrop-filter:blur(16px);padding:14px 48px;border-bottom:1px solid var(--border)}
+.nav-logo img{height:42px;width:auto;opacity:.92}
+.nav-center{display:flex;align-items:center;gap:40px}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-family:var(--fd);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--gold-lt)}
+.lang-toggle{display:flex;border:1px solid var(--border)}
+.lang-btn{font-family:var(--fb);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--muted);background:transparent;border:none;padding:5px 10px;cursor:pointer;transition:background .2s,color .2s}
+.lang-btn.active{background:var(--gold-faint);color:var(--gold-lt)}
+.nav-cta{font-family:var(--fd);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--bg);background:var(--gold);border:none;padding:11px 24px;cursor:pointer;text-decoration:none;transition:background .2s;display:flex;align-items:center;gap:8px}
+.nav-cta:hover{background:var(--gold-lt)}
+@media(max-width:900px){nav{padding:16px 24px}.nav-links,.lang-toggle{display:none}nav.on{padding:12px 24px}}
+
+/* HERO */
+#hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('cibo/tomahawk_black_angus.jpg') center/cover no-repeat;animation:slowBurn 20s ease-in-out infinite alternate}
+@keyframes slowBurn{from{transform:scale(1.06);filter:brightness(.42) sepia(.5) contrast(1.1)}to{transform:scale(1);filter:brightness(.35) sepia(.55) contrast(1.15)}}
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(13,11,10,.2) 0%,rgba(13,11,10,.85) 100%)}
+.hero-content{position:relative;z-index:1;padding:0 24px;animation:fadeUp 1.4s cubic-bezier(.22,1,.36,1) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+.hero-logo{margin-bottom:36px}
+.hero-logo img{height:88px;width:auto;filter:drop-shadow(0 0 24px rgba(196,154,10,.25))}
+.hero-eyebrow{font-family:var(--fd);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.hero-title{font-family:var(--fd);font-size:clamp(3rem,9vw,7rem);font-weight:700;letter-spacing:.04em;text-transform:uppercase;line-height:.95;color:var(--text);text-shadow:0 2px 32px rgba(0,0,0,.6);margin-bottom:6px}
+.hero-title-2{font-family:var(--fd);font-size:clamp(2.4rem,7vw,5.6rem);font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:28px}
+.hero-sub{font-family:var(--fb);font-size:clamp(14px,1.8vw,18px);font-weight:300;color:var(--muted);letter-spacing:.1em;margin-bottom:44px}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{font-family:var(--fd);font-size:11px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:14px 36px;border:none;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:10px}
+.btn-gold{background:var(--gold);color:var(--bg)}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid rgba(242,237,228,.22)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold-lt)}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;animation:fadeUp 2s 1.2s ease-out both}
+.hero-scroll span{font-family:var(--fd);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* SECTION BASICS */
+.sec-label{font-family:var(--fd);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.sec-label::after{content:'';display:block;width:40px;height:1px;background:var(--border)}
+.sec-title{font-family:var(--fd);font-size:clamp(2.6rem,5.5vw,5rem);font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--text);line-height:.95;margin-bottom:14px}
+.divider{display:flex;align-items:center;justify-content:center;gap:20px;padding:18px 0}
+.divider-line{flex:1;max-width:80px;height:1px;background:var(--border)}
+.divider-dot{font-family:var(--fd);font-size:9px;color:var(--border)}
+
+/* CHI SIAMO */
+#chi-siamo{background:var(--bg);padding:96px 0 80px}
+.chi-grid{display:grid;grid-template-columns:1fr 1fr;max-width:1280px;margin:0 auto}
+.chi-text{padding:64px 80px 64px 64px;display:flex;flex-direction:column;justify-content:center}
+.chi-title{font-family:var(--fd);font-size:clamp(2.4rem,5vw,4.6rem);font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--text);line-height:.95;margin-bottom:32px}
+.chi-title em{display:block;color:var(--gold-lt);font-style:italic;font-weight:400}
+.chi-body{font-size:16px;line-height:1.78;color:var(--muted);margin-bottom:12px;max-width:460px}
+.chi-stats{display:flex;gap:48px;border-top:1px solid var(--border);padding-top:28px;margin-top:28px}
+.stat-val{font-family:var(--fd);font-size:2.6rem;font-weight:700;color:var(--gold-lt);line-height:1}
+.stat-lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.chi-photo{position:relative;overflow:hidden}
+.chi-photo img{width:100%;height:100%;object-fit:cover;filter:sepia(.2) contrast(1.06) brightness(.88);transition:transform 8s ease-out}
+.chi-photo:hover img{transform:scale(1.04)}
+.chi-photo::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(13,11,10,.3) 0%,transparent 20%),linear-gradient(to bottom,transparent 70%,rgba(13,11,10,.5) 100%)}
+.chi-photo::after{content:'';position:absolute;inset:0;z-index:2;border:1px solid rgba(196,154,10,.12)}
+@media(max-width:860px){.chi-grid{grid-template-columns:1fr}.chi-text{padding:48px 24px}.chi-photo{aspect-ratio:16/9}}
+
+/* MENU */
+#menu{background:var(--bg-2);padding:96px 0;position:relative}
+#menu::before{content:'';position:absolute;inset:0;background:rgba(196,154,10,.03);pointer-events:none}
+.menu-wrap{max-width:1280px;margin:0 auto;padding:0 64px}
+.menu-hdr{text-align:center;margin-bottom:64px}
+.menu-intro{font-size:15px;color:var(--muted);letter-spacing:.06em;margin-top:10px}
+.menu-cols{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+.col-hdr{font-family:var(--fd);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.mi{padding:18px 0;border-bottom:1px solid rgba(56,52,47,.5)}
+.mi:last-child{border-bottom:none}
+.mi-row{display:grid;grid-template-columns:1fr 68px;gap:14px;align-items:start}
+.mi-name{font-family:var(--fd);font-size:1.15rem;font-weight:600;letter-spacing:.04em;color:var(--text);margin-bottom:5px}
+.mi-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:6px}
+.mi-tag{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ember)}
+.mi-thumb{width:68px;height:68px;object-fit:cover;filter:sepia(.25) contrast(1.06)}
+@media(max-width:860px){.menu-wrap{padding:0 24px}.menu-cols{grid-template-columns:1fr;gap:36px}}
+
+/* SERATE */
+#serate{background:var(--bg);padding:96px 0}
+.serate-wrap{max-width:1280px;margin:0 auto;padding:0 64px}
+.serate-hdr{margin-bottom:52px}
+.serate-list{display:flex;flex-direction:column;gap:2px}
+.sc{display:grid;grid-template-columns:260px 1fr 152px;align-items:stretch;background:var(--bg-2);border:1px solid var(--border);overflow:hidden;cursor:default;transition:background .25s}
+.sc:hover{background:var(--bg-3)}
+.sc-img{position:relative;overflow:hidden}
+.sc-img img{width:100%;height:100%;min-height:190px;object-fit:cover;filter:sepia(.3) contrast(1.1) brightness(.72);transition:transform 6s ease-out}
+.sc:hover .sc-img img{transform:scale(1.05)}
+.sc-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent 55%,var(--bg-2) 100%)}
+.sc-body{padding:30px 32px;display:flex;flex-direction:column;justify-content:center}
+.sc-day{font-family:var(--fd);font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.sc-name{font-family:var(--fd);font-size:clamp(1.4rem,2.8vw,2.2rem);font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text);line-height:.95;margin-bottom:10px}
+.sc-desc{font-size:14px;color:var(--muted);line-height:1.65;max-width:480px}
+.sc-price-col{padding:24px 28px 24px 18px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;border-left:1px solid var(--border)}
+.sc-price{font-family:var(--fd);font-size:2.6rem;font-weight:700;color:var(--gold-lt);line-height:1;text-align:right}
+.sc-price-lbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px;text-align:right}
+.serate-cta{margin-top:40px;display:flex;justify-content:center}
+@media(max-width:900px){.serate-wrap{padding:0 24px}.sc{grid-template-columns:1fr}.sc-img img{min-height:150px}.sc-price-col{border-left:none;border-top:1px solid var(--border);flex-direction:row;justify-content:space-between;align-items:center;padding:14px 24px}.sc-body{padding:20px 24px}}
+
+/* BOOKING */
+#prenota{background:var(--bg-2);padding:96px 0;border-top:1px solid var(--border)}
+.book-wrap{max-width:840px;margin:0 auto;padding:0 64px}
+.book-hdr{margin-bottom:48px}
+.book-sub{font-size:15px;color:var(--muted);margin-top:10px}
+.book-form{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.book-form .full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:7px}
+.form-group label{font-family:var(--fd);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.form-group input,.form-group select,.form-group textarea{background:var(--bg-3);border:1px solid var(--border);color:var(--text);font-family:var(--fb);font-size:15px;padding:12px 16px;width:100%;outline:none;transition:border .2s;-webkit-appearance:none;appearance:none;border-radius:0}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239A9188' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.form-group textarea{min-height:88px;resize:vertical}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--muted)}
+.form-actions{grid-column:1/-1;display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.btn-wa{background:#1a7c3e;color:#fff;font-family:var(--fd);font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:14px 28px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:background .2s;text-decoration:none}
+.btn-wa:hover{background:#22a355}
+.book-or{font-size:13px;color:var(--muted)}
+.book-tel-link{font-family:var(--fd);font-size:11px;letter-spacing:.14em;color:var(--gold);text-decoration:none;transition:color .2s}
+.book-tel-link:hover{color:var(--gold-lt)}
+@media(max-width:700px){.book-wrap{padding:0 24px}.book-form{grid-template-columns:1fr}}
+
+/* GALLERIA */
+#galleria{background:var(--bg);padding:96px 0 80px}
+.gal-wrap{max-width:1280px;margin:0 auto;padding:0 64px}
+.gal-hdr{margin-bottom:44px}
+.film{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:280px 280px;gap:3px}
+.film .film-frame:first-child{grid-row:1/3}
+.film2{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:220px;gap:3px;margin-top:3px}
+.film-frame{position:relative;overflow:hidden;background:var(--bg-3)}
+.film-frame img{width:100%;height:100%;object-fit:cover;filter:sepia(.18) contrast(1.07) brightness(.83);transition:filter .5s,transform .7s}
+.film-frame:hover img{filter:sepia(0) contrast(1.1) brightness(.95);transform:scale(1.04)}
+.film-frame::after{content:attr(data-caption);position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(transparent,rgba(13,11,10,.85));font-family:var(--fd);font-size:10px;letter-spacing:.1em;color:var(--muted);transform:translateY(100%);transition:transform .3s;z-index:3}
+.film-frame:hover::after{transform:none}
+@media(max-width:768px){.gal-wrap{padding:0 24px}.film{grid-template-columns:1fr 1fr;grid-template-rows:160px 160px}.film2{grid-template-columns:1fr 1fr;grid-template-rows:140px}.film2 .film-frame:last-child{display:none}}
+
+/* DOVE SIAMO */
+#dove-siamo{background:var(--bg-2);padding:96px 0}
+.dove-wrap{max-width:1280px;margin:0 auto;padding:0 64px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.dove-map{position:relative}
+.dove-map::after{content:'';position:absolute;inset:0;border:1px solid rgba(196,154,10,.16);pointer-events:none;z-index:2}
+.dove-map iframe{width:100%;height:420px;border:none;display:block;filter:invert(88%) hue-rotate(180deg) saturate(.65) brightness(.88) sepia(.08)}
+.dove-info{padding-top:4px}
+.dove-title{font-family:var(--fd);font-size:clamp(2.2rem,4.5vw,4rem);font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--text);line-height:.95;margin-bottom:40px}
+.dove-block{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--border)}
+.dove-block:last-of-type{border-bottom:none}
+.dove-lbl{font-family:var(--fd);font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.dove-val{font-size:16px;color:var(--text);line-height:1.6}
+.chiuso-badge{display:inline-block;font-family:var(--fd);font-size:9px;letter-spacing:.14em;text-transform:uppercase;background:var(--bg-3);color:var(--muted);padding:4px 12px;border:1px solid var(--border);margin-top:7px}
+.dove-tel{display:flex;align-items:center;gap:14px;margin-top:28px;text-decoration:none;transition:opacity .2s}
+.dove-tel:hover{opacity:.8}
+.dove-tel-icon{width:46px;height:46px;background:var(--gold-faint);border:1px solid rgba(196,154,10,.28);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dove-tel-icon svg{width:20px;height:20px;stroke:var(--gold)}
+.dove-tel-num{font-family:var(--fd);font-size:2.5rem;font-weight:700;color:var(--gold-lt);line-height:1}
+@media(max-width:860px){.dove-wrap{grid-template-columns:1fr;padding:0 24px}.dove-map iframe{height:260px}}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:32px 64px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.ft-logo img{height:36px;opacity:.75}
+.ft-copy{font-size:13px;color:var(--muted);text-align:center;flex:1}
+.ft-ig{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s}
+.ft-ig:hover{color:var(--gold-lt)}
+.ft-ig svg{width:17px;height:17px}
+@media(max-width:768px){footer{padding:24px;flex-direction:column;text-align:center}}
+
+/* REVEALS */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.rv-l{opacity:0;transform:translateX(-28px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.rv-r{opacity:0;transform:translateX(28px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.rv.in,.rv-l.in,.rv-r.in{opacity:1;transform:none}
+.rv-stag > *{opacity:0;transform:translateY(16px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.rv-stag.in > *:nth-child(1){opacity:1;transform:none;transition-delay:0ms}
+.rv-stag.in > *:nth-child(2){opacity:1;transform:none;transition-delay:80ms}
+.rv-stag.in > *:nth-child(3){opacity:1;transform:none;transition-delay:160ms}
+.rv-stag.in > *:nth-child(4){opacity:1;transform:none;transition-delay:240ms}
+@media(prefers-reduced-motion:reduce){.rv,.rv-l,.rv-r,.rv-stag > *{opacity:1!important;transform:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#"><img src="naif_logo.png" alt="Naïf Terra e Tradizione"></a>
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li><a href="#menu" data-i18n="nav.menu">Menù</a></li>
+      <li><a href="#serate" data-i18n="nav.serate">Serate</a></li>
+      <li><a href="#prenota" data-i18n="nav.book-nav">Prenota</a></li>
+      <li><a href="#galleria" data-i18n="nav.gallery">Galleria</a></li>
+      <li><a href="#dove-siamo" data-i18n="nav.dove">Dove siamo</a></li>
+    </ul>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="it">IT</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+  <a class="nav-cta" href="tel:3292503022">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .08h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+    <span data-i18n="nav.cta">Prenota</span>
+  </a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-logo"><img src="naif_logo.png" alt="Naïf"></div>
+    <p class="hero-eyebrow" data-i18n="hero.eyebrow">RistoPub · Praia a Mare · Est. 2023</p>
+    <h1 class="hero-title" data-i18n="hero.title">Terra</h1>
+    <div class="hero-title-2" data-i18n="hero.title2">&amp; Tradizione</div>
+    <p class="hero-sub" data-i18n="hero.sub">Cucina calabrese. Tagli pregiati. Birre artigianali.</p>
+    <div class="hero-btns">
+      <a class="btn btn-gold" href="tel:3292503022">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .08h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+        <span data-i18n="hero.cta">Prenota un tavolo</span>
+      </a>
+      <a class="btn btn-outline" href="#serate" data-i18n="hero.cta2">Le nostre serate</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span data-i18n="hero.scroll">Scorri</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- CHI SIAMO -->
+<section id="chi-siamo">
+  <div class="chi-grid">
+    <div class="chi-text rv-l">
+      <div class="sec-label" data-i18n="chi.label">Chi siamo</div>
+      <h2 class="chi-title">
+        <span data-i18n="chi.title1">Un posto</span>
+        <em data-i18n="chi.title2">vero.</em>
+      </h2>
+      <p class="chi-body" data-i18n="chi.p1">Naïf nasce dall'idea che mangiare bene non debba essere complicato. Specialità calabresi, piatti tipici rivisitati, stuzzicheria da condividere.</p>
+      <p class="chi-body" data-i18n="chi.p2">Carni selezionate da tutta Europa, ricette di territorio, atmosfera autentica. Legno, cuoio, calore. Siamo a Praia a Mare, ci trovi ogni sera tranne il martedì.</p>
+      <div class="chi-stats rv-stag">
+        <div><div class="stat-val">2023</div><div class="stat-lbl" data-i18n="chi.s1">Fondato</div></div>
+        <div><div class="stat-val">6</div><div class="stat-lbl" data-i18n="chi.s2">Serate su 7</div></div>
+        <div><div class="stat-val">4+</div><div class="stat-lbl" data-i18n="chi.s3">Format fissi</div></div>
+      </div>
+    </div>
+    <div class="chi-photo rv-r">
+      <img src="ambiente/naif_stile.jpg" alt="Interno del locale Naïf">
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-dot">◆</div><div class="divider-line"></div></div>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-wrap">
+    <div class="menu-hdr rv">
+      <div class="sec-label" data-i18n="menu.lbl">Cucina</div>
+      <div class="sec-title" data-i18n="menu.title">Il Menù</div>
+      <p class="menu-intro" data-i18n="menu.intro">Dalla griglia e dalla cucina. Ogni piatto, una scelta precisa.</p>
+    </div>
+    <div class="menu-cols">
+      <div class="rv">
+        <div class="col-hdr" data-i18n="menu.col1">Dalla Griglia</div>
+        <div class="mi">
+          <div class="mi-row">
+            <div><div class="mi-name">Tomahawk Black Angus</div><div class="mi-desc" data-i18n="m.tomahawk">Costata con osso lungo, alta marezzatura. Cotta alla perfezione sul fuoco vivo.</div><div class="mi-tag" data-i18n="m.tomahawk-t">Taglio pregiato</div></div>
+            <img class="mi-thumb" src="cibo/tomahawk_black_angus.jpg" alt="Tomahawk">
+          </div>
+        </div>
+        <div class="mi">
+          <div class="mi-row">
+            <div><div class="mi-name">Manzetta Prussiana</div><div class="mi-desc" data-i18n="m.manzetta">Scottona dalla Masuria polacca, alimentata con barbabietole da zucchero. Tenera, dolce, marezzata.</div><div class="mi-tag" data-i18n="m.manzetta-t">Selezione speciale</div></div>
+            <img class="mi-thumb" src="cibo/manzetta_prussiana.jpg" alt="Manzetta Prussiana">
+          </div>
+        </div>
+        <div class="mi">
+          <div class="mi-name">Marble — Carne Spagnola</div>
+          <div class="mi-desc" data-i18n="m.marble">Rubia Gallega. Grasso intramuscolare che si scioglie in cottura, sapore intenso.</div>
+          <div class="mi-tag" data-i18n="m.marble-t">Importazione diretta</div>
+        </div>
+        <div class="mi">
+          <div class="mi-row">
+            <div><div class="mi-name" data-i18n="m.panino-n">Panino Salsiccia</div><div class="mi-desc" data-i18n="m.panino">Salsiccia calabrese, friarielli e formaggio. Semplice, preciso.</div></div>
+            <img class="mi-thumb" src="cibo/panino_salsiccia_1.jpg" alt="Panino salsiccia">
+          </div>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="col-hdr" data-i18n="menu.col2">Cucina e Stuzzicheria</div>
+        <div class="mi">
+          <div class="mi-row">
+            <div><div class="mi-name">Gnocchi al Pecorino</div><div class="mi-desc" data-i18n="m.gn1">Crema di pecorino, guanciale croccante e fiori di zucca. Delicatezza e sapore.</div></div>
+            <img class="mi-thumb" src="cibo/gnocchi_pomodoro_1.jpg" alt="Gnocchi al pecorino">
+          </div>
+        </div>
+        <div class="mi"><div class="mi-name">Pasta Cipolla di Tropea</div><div class="mi-desc" data-i18n="m.pasta">Salsiccia calabrese e vino lucano. Unione autentica tra due terre.</div></div>
+        <div class="mi">
+          <div class="mi-row">
+            <div><div class="mi-name">Gnocchi al Sugo</div><div class="mi-desc" data-i18n="m.gn2">Ragù di carne e ricotta fresca. Il comfort food che cercavi.</div></div>
+            <img class="mi-thumb" src="cibo/gnocchi_sugo_carne_ricotta.jpg" alt="Gnocchi al sugo">
+          </div>
+        </div>
+        <div class="mi">
+          <div class="mi-row">
+            <div><div class="mi-name">Mozzarelle Fritte</div><div class="mi-desc" data-i18n="m.mozz">Croccanti fuori, filanti dentro. Spariscono in un attimo.</div></div>
+            <img class="mi-thumb" src="cibo/mozzarelle_fritte_1.jpg" alt="Mozzarelle fritte">
+          </div>
+        </div>
+        <div class="mi"><div class="mi-name">Nachos con Guacamole</div><div class="mi-desc" data-i18n="m.nachos">Croccantezza e cremosità. Perfetti per aprire la serata.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-dot">◆</div><div class="divider-line"></div></div>
+
+<!-- SERATE -->
+<section id="serate">
+  <div class="serate-wrap">
+    <div class="serate-hdr rv">
+      <div class="sec-label" data-i18n="ser.lbl">Ogni settimana</div>
+      <div class="sec-title" data-i18n="ser.title">Le Nostre Serate</div>
+    </div>
+    <div class="serate-list rv-stag">
+      <div class="sc">
+        <div class="sc-img"><img src="speciali/all_you_can_meat_venerdi.jpg" alt="All You Can Meat"></div>
+        <div class="sc-body">
+          <div class="sc-day" data-i18n="s1.day">Ogni Venerdì</div>
+          <div class="sc-name">All You Can Meat</div>
+          <div class="sc-desc" data-i18n="s1.desc">Tagli selezionati alla griglia senza limiti. Birra CALA alla spina, bionda e rossa. Lounge music per accompagnare ogni morso e ogni sorso.</div>
+        </div>
+        <div class="sc-price-col"><div class="sc-price">€25</div><div class="sc-price-lbl" data-i18n="per.person">a persona</div></div>
+      </div>
+      <div class="sc">
+        <div class="sc-img"><img src="cibo/gnocchi_pomodoro_2.jpg" alt="All You Can Eat Pasta"></div>
+        <div class="sc-body">
+          <div class="sc-day" data-i18n="s2.day">Ogni Giovedì</div>
+          <div class="sc-name">All You Can Eat Pasta</div>
+          <div class="sc-desc" data-i18n="s2.desc">Quattro tipi di pasta, porzioni senza limiti. Servita direttamente nel piatto di parmigiano. Vieni affamato, alla pasta pensiamo noi.</div>
+        </div>
+        <div class="sc-price-col"><div class="sc-price">€20</div><div class="sc-price-lbl" data-i18n="per.person">a persona</div></div>
+      </div>
+      <div class="sc">
+        <div class="sc-img"><img src="speciali/apericena_9nov.jpg" alt="Aperi e Cena"></div>
+        <div class="sc-body">
+          <div class="sc-day" data-i18n="s3.day">Ogni Domenica · Ore 19:30</div>
+          <div class="sc-name">Aperi &amp; Cena</div>
+          <div class="sc-desc" data-i18n="s3.desc">Un piede all'aperitivo, uno a cena. Calice di vino o birra incluso. Musica ai vinili con José Luis. La formula giusta per chi non sa scegliere.</div>
+        </div>
+        <div class="sc-price-col"><div class="sc-price">€15</div><div class="sc-price-lbl" data-i18n="s3.lbl">incluso calice</div></div>
+      </div>
+      <div class="sc">
+        <div class="sc-img"><img src="speciali/vini_vinili_11ott.jpg" alt="Vini e Vinili"></div>
+        <div class="sc-body">
+          <div class="sc-day" data-i18n="s4.day">Sabati Speciali · Dalle Ore 20:00</div>
+          <div class="sc-name">Vini &amp; Vinili</div>
+          <div class="sc-desc" data-i18n="s4.desc">Degustazione vini con Cantina Spadafora e Russo &amp; Longo. Vinyl Session con José Luis. Calice di benvenuto offerto da noi. Menù à la carte.</div>
+        </div>
+        <div class="sc-price-col">
+          <div class="sc-price" style="font-size:1.4rem;line-height:1.3"><span data-i18n="s4.p1">à la</span><br><span data-i18n="s4.p2">carte</span></div>
+          <div class="sc-price-lbl" data-i18n="s4.lbl">calice omaggio</div>
+        </div>
+      </div>
+    </div>
+    <div class="serate-cta rv">
+      <a class="btn btn-gold" href="tel:3292503022">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .08h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+        <span data-i18n="ser.cta">Prenota il tuo tavolo — 329 250 3022</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-dot">◆</div><div class="divider-line"></div></div>
+
+<!-- BOOKING -->
+<section id="prenota">
+  <div class="book-wrap">
+    <div class="book-hdr rv">
+      <div class="sec-label" data-i18n="bk.lbl">Prenotazioni</div>
+      <div class="sec-title">
+        <span data-i18n="bk.t1">Riserva il</span><br>
+        <span data-i18n="bk.t2">Tuo Tavolo</span>
+      </div>
+      <p class="book-sub" data-i18n="bk.sub">Compila il modulo e ti contatteremo via WhatsApp per confermare.</p>
+    </div>
+    <form class="book-form rv" id="bookForm" novalidate>
+      <div class="form-group">
+        <label for="b-name" data-i18n="bk.name">Nome e cognome</label>
+        <input type="text" id="b-name" required data-placeholder-i18n="bk.name-ph">
+      </div>
+      <div class="form-group">
+        <label for="b-tel" data-i18n="bk.tel">Telefono</label>
+        <input type="tel" id="b-tel" required data-placeholder-i18n="bk.tel-ph">
+      </div>
+      <div class="form-group">
+        <label for="b-date" data-i18n="bk.date">Data</label>
+        <input type="date" id="b-date" required>
+      </div>
+      <div class="form-group">
+        <label for="b-time" data-i18n="bk.time">Orario</label>
+        <select id="b-time">
+          <option>19:30</option><option>20:00</option><option selected>20:30</option><option>21:00</option><option>21:30</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="b-guests" data-i18n="bk.guests">Persone</label>
+        <select id="b-guests">
+          <option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8+</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="b-event" data-i18n="bk.event">Serata speciale</label>
+        <select id="b-event">
+          <option value="" data-i18n="bk.event-none">Nessuna / Normale</option>
+          <option>All You Can Meat (Venerdì €25)</option>
+          <option>All You Can Eat Pasta (Giovedì €20)</option>
+          <option>Aperi &amp; Cena (Domenica €15)</option>
+          <option>Vini &amp; Vinili (Sabato)</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label for="b-note" data-i18n="bk.note-lbl">Note</label>
+        <textarea id="b-note" data-placeholder-i18n="bk.note-ph"></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn-wa">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span data-i18n="bk.submit">Invia via WhatsApp</span>
+        </button>
+        <span class="book-or" data-i18n="bk.or">oppure</span>
+        <a class="book-tel-link" href="tel:3292503022" data-i18n="bk.call">chiama il 329 250 3022</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-dot">◆</div><div class="divider-line"></div></div>
+
+<!-- GALLERIA -->
+<section id="galleria">
+  <div class="gal-wrap">
+    <div class="gal-hdr rv">
+      <div class="sec-label" data-i18n="gal.lbl">Fotografie</div>
+      <div class="sec-title" data-i18n="gal.title">Galleria</div>
+    </div>
+    <div class="film rv">
+      <div class="film-frame" data-caption="Tomahawk Black Angus"><img src="cibo/tomahawk_black_angus.jpg" alt="Tomahawk Black Angus"></div>
+      <div class="film-frame" data-caption="Panino salsiccia e friarielli"><img src="cibo/panino_salsiccia_1.jpg" alt="Panino salsiccia"></div>
+      <div class="film-frame" data-caption="Mozzarelle fritte"><img src="cibo/mozzarelle_fritte_1.jpg" alt="Mozzarelle fritte"></div>
+      <div class="film-frame" data-caption="Gnocchi al pomodoro"><img src="cibo/gnocchi_pomodoro_3.jpg" alt="Gnocchi al pomodoro"></div>
+      <div class="film-frame" data-caption="Manzetta Prussiana"><img src="cibo/manzetta_prussiana.jpg" alt="Manzetta Prussiana"></div>
+    </div>
+    <div class="film2 rv">
+      <div class="film-frame" data-caption="Sashimi di carne pregiata"><img src="cibo/sashimi_carne.jpg" alt="Sashimi di carne"></div>
+      <div class="film-frame" data-caption="Gnocchi al sugo di carne"><img src="cibo/gnocchi_sugo_carne_ricotta.jpg" alt="Gnocchi al sugo"></div>
+      <div class="film-frame" data-caption="Panino salsiccia e friarielli"><img src="cibo/panino_salsiccia_2.jpg" alt="Panino salsiccia e friarielli"></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOVE SIAMO -->
+<section id="dove-siamo">
+  <div class="dove-wrap">
+    <div class="dove-map rv-l">
+      <iframe src="https://maps.google.com/maps?q=Via+Cristoforo+Colombo+14+Praia+a+Mare+CS+Italy&output=embed"
+        allowfullscreen loading="lazy" title="Posizione Naïf"></iframe>
+    </div>
+    <div class="rv-r">
+      <div class="sec-label" data-i18n="dove.lbl">Dove siamo</div>
+      <h2 class="dove-title">
+        <span data-i18n="dove.t1">Vieni</span><br>
+        <span data-i18n="dove.t2">a trovarci.</span>
+      </h2>
+      <div class="dove-block">
+        <div class="dove-lbl" data-i18n="dove.addr-lbl">Indirizzo</div>
+        <div class="dove-val">Via Cristoforo Colombo, 14<br>87028 Praia a Mare (CS)<br>Calabria</div>
+      </div>
+      <div class="dove-block">
+        <div class="dove-lbl" data-i18n="dove.hours-lbl">Orari</div>
+        <div class="dove-val" data-i18n="dove.hours">Aperto ogni sera</div>
+        <div class="chiuso-badge" data-i18n="dove.closed">Chiuso il Martedì</div>
+      </div>
+      <div class="dove-block">
+        <div class="dove-lbl" data-i18n="dove.res-lbl">Prenotazioni</div>
+        <div class="dove-val">329 250 3022</div>
+      </div>
+      <a class="dove-tel" href="tel:3292503022">
+        <div class="dove-tel-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="currentColor"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .08h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+        </div>
+        <div class="dove-tel-num">329 250 3022</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-logo"><img src="naif_logo.png" alt="Naïf"></div>
+  <div class="ft-copy">
+    Naïf Terra e Tradizione · Via Cristoforo Colombo, 14 · 87028 Praia a Mare (CS)<br>
+    Tel: 329 250 3022 · <span data-i18n="ft.closed">Chiuso il Martedì</span>
+  </div>
+  <a class="ft-ig" href="https://www.instagram.com/naif_terraetradizione/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    @naif_terraetradizione
+  </a>
+</footer>
+
+<script>
+// Nav
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('on', scrollY > 72), {passive:true});
+
+// Reveals
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, {threshold:.1, rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-stag').forEach(el => obs.observe(el));
+
+// Date min
+const di = document.getElementById('b-date');
+if(di){ const t = new Date().toISOString().split('T')[0]; di.min = t; di.value = t; }
+
+// WhatsApp booking
+document.getElementById('bookForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name   = document.getElementById('b-name').value.trim();
+  const tel    = document.getElementById('b-tel').value.trim();
+  const date   = document.getElementById('b-date').value;
+  const time   = document.getElementById('b-time').value;
+  const guests = document.getElementById('b-guests').value;
+  const event  = document.getElementById('b-event').value;
+  const note   = document.getElementById('b-note').value.trim();
+  const isEn   = document.documentElement.lang === 'en';
+  let msg = isEn
+    ? 'Hello, I would like to book a table at Naif.\n\nName: ' + name + '\nPhone: ' + tel + '\nDate: ' + date + '\nTime: ' + time + '\nGuests: ' + guests
+    : 'Buonasera, vorrei prenotare un tavolo da Naif.\n\nNome: ' + name + '\nTelefono: ' + tel + '\nData: ' + date + '\nOrario: ' + time + '\nPersone: ' + guests;
+  if(event) msg += (isEn ? '\nEvent: ' : '\nSerata: ') + event;
+  if(note)  msg += (isEn ? '\nNotes: '  : '\nNote: ')  + note;
+  window.open('https://wa.me/393292503022?text=' + encodeURIComponent(msg), '_blank');
+});
+
+// i18n — all values plain text only
+const T = {
+  it: {
+    'nav.menu':'Menù','nav.serate':'Serate','nav.book-nav':'Prenota','nav.gallery':'Galleria','nav.dove':'Dove siamo','nav.cta':'Prenota',
+    'hero.eyebrow':'RistoPub · Praia a Mare · Est. 2023','hero.title':'Terra','hero.title2':'& Tradizione',
+    'hero.sub':'Cucina calabrese. Tagli pregiati. Birre artigianali.','hero.cta':'Prenota un tavolo','hero.cta2':'Le nostre serate','hero.scroll':'Scorri',
+    'chi.label':'Chi siamo','chi.title1':'Un posto','chi.title2':'vero.',
+    'chi.p1':"Naïf nasce dall'idea che mangiare bene non debba essere complicato. Specialità calabresi, piatti tipici rivisitati, stuzzicheria da condividere.",
+    'chi.p2':'Carni selezionate da tutta Europa, ricette di territorio, atmosfera autentica. Legno, cuoio, calore. Siamo a Praia a Mare, ci trovi ogni sera tranne il martedì.',
+    'chi.s1':'Fondato','chi.s2':'Serate su 7','chi.s3':'Format fissi',
+    'menu.lbl':'Cucina','menu.title':'Il Menù','menu.intro':'Dalla griglia e dalla cucina. Ogni piatto, una scelta precisa.',
+    'menu.col1':'Dalla Griglia','menu.col2':'Cucina e Stuzzicheria',
+    'm.tomahawk':'Costata con osso lungo, alta marezzatura. Cotta alla perfezione sul fuoco vivo.','m.tomahawk-t':'Taglio pregiato',
+    'm.manzetta':'Scottona dalla Masuria polacca, alimentata con barbabietole da zucchero. Tenera, dolce, marezzata.','m.manzetta-t':'Selezione speciale',
+    'm.marble':'Rubia Gallega. Grasso intramuscolare che si scioglie in cottura, sapore intenso.','m.marble-t':'Importazione diretta',
+    'm.panino-n':'Panino Salsiccia','m.panino':'Salsiccia calabrese, friarielli e formaggio. Semplice, preciso.',
+    'm.gn1':'Crema di pecorino, guanciale croccante e fiori di zucca. Delicatezza e sapore.',
+    'm.pasta':'Salsiccia calabrese e vino lucano. Unione autentica tra due terre.',
+    'm.gn2':'Ragù di carne e ricotta fresca. Il comfort food che cercavi.',
+    'm.mozz':'Croccanti fuori, filanti dentro. Spariscono in un attimo.',
+    'm.nachos':'Croccantezza e cremosità. Perfetti per aprire la serata.',
+    'ser.lbl':'Ogni settimana','ser.title':'Le Nostre Serate',
+    's1.day':'Ogni Venerdì','s1.desc':'Tagli selezionati alla griglia senza limiti. Birra CALA alla spina, bionda e rossa. Lounge music per accompagnare ogni morso e ogni sorso.',
+    's2.day':'Ogni Giovedì','s2.desc':'Quattro tipi di pasta, porzioni senza limiti. Servita direttamente nel piatto di parmigiano. Vieni affamato, alla pasta pensiamo noi.',
+    's3.day':'Ogni Domenica · Ore 19:30','s3.desc':"Un piede all'aperitivo, uno a cena. Calice di vino o birra incluso. Musica ai vinili con José Luis. La formula giusta per chi non sa scegliere.",'s3.lbl':'incluso calice',
+    's4.day':'Sabati Speciali · Dalle Ore 20:00','s4.desc':'Degustazione vini con Cantina Spadafora e Russo & Longo. Vinyl Session con José Luis. Calice di benvenuto offerto da noi. Menù à la carte.','s4.p1':'à la','s4.p2':'carte','s4.lbl':'calice omaggio',
+    'per.person':'a persona','ser.cta':'Prenota il tuo tavolo — 329 250 3022',
+    'bk.lbl':'Prenotazioni','bk.t1':'Riserva il','bk.t2':'Tuo Tavolo','bk.sub':'Compila il modulo e ti contatteremo via WhatsApp per confermare.',
+    'bk.name':'Nome e cognome','bk.name-ph':'Mario Rossi','bk.tel':'Telefono','bk.tel-ph':'+39 333 000 0000',
+    'bk.date':'Data','bk.time':'Orario','bk.guests':'Persone','bk.event':'Serata speciale','bk.event-none':'Nessuna / Normale',
+    'bk.note-lbl':'Note','bk.note-ph':'Allergie, occasioni speciali...','bk.submit':'Invia via WhatsApp','bk.or':'oppure','bk.call':'chiama il 329 250 3022',
+    'gal.lbl':'Fotografie','gal.title':'Galleria',
+    'dove.lbl':'Dove siamo','dove.t1':'Vieni','dove.t2':'a trovarci.','dove.addr-lbl':'Indirizzo','dove.hours-lbl':'Orari','dove.hours':'Aperto ogni sera','dove.closed':'Chiuso il Martedì','dove.res-lbl':'Prenotazioni',
+    'ft.closed':'Chiuso il Martedì'
+  },
+  en: {
+    'nav.menu':'Menu','nav.serate':'Events','nav.book-nav':'Book','nav.gallery':'Gallery','nav.dove':'Find us','nav.cta':'Book',
+    'hero.eyebrow':'RistoPub · Praia a Mare · Est. 2023','hero.title':'Terra','hero.title2':'& Tradition',
+    'hero.sub':'Calabrian cuisine. Premium cuts. Craft beers.','hero.cta':'Book a table','hero.cta2':'Our events','hero.scroll':'Scroll',
+    'chi.label':'About us','chi.title1':'A real','chi.title2':'place.',
+    'chi.p1':'Naïf was born from the idea that eating well does not have to be complicated. Calabrian specialties, revisited traditional dishes, sharing platters.',
+    'chi.p2':'Meats sourced from across Europe, regional recipes, authentic atmosphere. Wood, leather, warmth. We are in Praia a Mare, open every evening except Tuesday.',
+    'chi.s1':'Founded','chi.s2':'Evenings / week','chi.s3':'Regular formats',
+    'menu.lbl':'Kitchen','menu.title':'The Menu','menu.intro':'From the grill and the kitchen. Every dish, a deliberate choice.',
+    'menu.col1':'From the Grill','menu.col2':'Kitchen & Appetizers',
+    'm.tomahawk':'Long-bone ribeye, high marbling. Cooked to perfection over live fire.','m.tomahawk-t':'Premium cut',
+    'm.manzetta':'Heifer from Polish Masuria, fed on sugar beets. Tender, sweet, marbled.','m.manzetta-t':'Special selection',
+    'm.marble':'Rubia Gallega. Intramuscular fat that melts during cooking, intense flavour.','m.marble-t':'Direct import',
+    'm.panino-n':'Sausage Sandwich','m.panino':'Calabrian sausage, friarielli greens and cheese. Simple and precise.',
+    'm.gn1':'Pecorino cream, crispy guanciale and courgette flowers. Delicate and flavourful.',
+    'm.pasta':'Calabrian sausage and Lucanian wine. An authentic union of two lands.',
+    'm.gn2':'Meat ragù and fresh ricotta. The comfort food you were looking for.',
+    'm.mozz':'Crispy outside, stringy inside. Gone in a moment.',
+    'm.nachos':'Crunchiness and creaminess. Perfect to open the evening.',
+    'ser.lbl':'Every week','ser.title':'Our Events',
+    's1.day':'Every Friday','s1.desc':'Selected cuts grilled without limits. CALA craft beer on tap, blonde and red. Lounge music to accompany every bite and sip.',
+    's2.day':'Every Thursday','s2.desc':'Four types of pasta, unlimited portions. Served in the parmesan wheel. Come hungry, we handle the pasta.',
+    's3.day':'Every Sunday · 7:30 PM','s3.desc':'One foot in the aperitivo, one at dinner. Glass of wine or beer included. Vinyl music with José Luis. The right formula for those who cannot choose.','s3.lbl':'glass included',
+    's4.day':'Special Saturdays · From 8:00 PM','s4.desc':'Wine tasting with Cantina Spadafora and Russo & Longo. Vinyl Session with José Luis. Welcome glass on the house. À la carte menu.','s4.p1':'à la','s4.p2':'carte','s4.lbl':'welcome glass',
+    'per.person':'per person','ser.cta':'Book your table — 329 250 3022',
+    'bk.lbl':'Reservations','bk.t1':'Reserve','bk.t2':'Your Table','bk.sub':'Fill in the form and we will contact you via WhatsApp to confirm.',
+    'bk.name':'Full name','bk.name-ph':'Mario Rossi','bk.tel':'Phone','bk.tel-ph':'+39 333 000 0000',
+    'bk.date':'Date','bk.time':'Time','bk.guests':'Guests','bk.event':'Special evening','bk.event-none':'None / Regular dinner',
+    'bk.note-lbl':'Notes','bk.note-ph':'Allergies, special occasions...','bk.submit':'Send via WhatsApp','bk.or':'or','bk.call':'call 329 250 3022',
+    'gal.lbl':'Photography','gal.title':'Gallery',
+    'dove.lbl':'Find us','dove.t1':'Come','dove.t2':'visit us.','dove.addr-lbl':'Address','dove.hours-lbl':'Hours','dove.hours':'Open every evening','dove.closed':'Closed on Tuesdays','dove.res-lbl':'Reservations',
+    'ft.closed':'Closed on Tuesdays'
+  }
+};
+
+function applyLang(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  const t = T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t[el.dataset.i18n];
+    if(v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll('[data-placeholder-i18n]').forEach(el => {
+    const v = t[el.dataset.placeholderI18n];
+    if(v !== undefined) el.placeholder = v;
+  });
+}
+
+document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+applyLang('it');
+</script>
+</body>
+</html>
